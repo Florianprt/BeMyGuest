@@ -1,0 +1,17 @@
+
+
+################
+################ REWRITE URL
+################
+Options +FollowSymlinks
+RewriteEngine on
+
+RewriteRule ^home$ index.php
+RewriteRule ^search$ ?page=search
+RewriteRule ^dish$ ?page=dish
+RewriteRule ^profil$ ?page=profil
+
+RewriteRule ^user/([a-zA-Z0-9]+)$ ?module=user&page=index&id=&1
+RewriteRule ^user/createdish/$ ?module=user&page=create_dish&id=&1
+RewriteRule ^user/dish/$ ?module=user&page=dish&id=&1
+RewriteRule ^user/profil/$ ?module=user&page=profil&id=&1
