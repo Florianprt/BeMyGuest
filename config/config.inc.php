@@ -1,26 +1,67 @@
 <?php
-$host 							='localhost';
+define("BASE", "http://localhost/BeMyGuest/");
+define("SERVER", "DEV");
+define("DEFAULT_ACTION", "index");
+define("DEFAULT_MODULE", "pages");
 
-$login 							='root';
-$user 							='root';
+define('ROOT', str_replace('index.php', '', $_SERVER['SCRIPT_NAME']));
+define('WEBROOT', str_replace('index.php', '', $_SERVER['SCRIPT_FILENAME']));
 
-$password						='root';
-$db								='bemyguest';
-$dbName 						='bemyguest';
+if (SERVER == "DEV") {
+    define("DEBUG", true);
+    $host 							='localhost';
+	$login 							='root';
+	$user 							='root';
+	$password						='root';
+	$db								='bemyguest';
+	$dbName 						='bemyguest';
+	$table_prefixe					='bmg_';
+} else if (SERVER == "TEST") {
+    define("DEBUG", true);
+    $host 							='localhost';
+	$login 							='root';
+	$user 							='root';
+	$password						='root';
+	$db								='bemyguest';
+	$dbName 						='bemyguest';
+	$table_prefixe					='bmg_';
+} else if (SERVER == "PROD") {
+    define("DEBUG", false);
+    $host 							='localhost';
+	$login 							='root';
+	$user 							='root';
+	$password						='root';
+	$db								='bemyguest';
+	$dbName 						='bemyguest';
+	$table_prefixe					='bmg_';
+}
 
-$table_prefixe					='bmg_';
 
 
 
 /************  FONCTION POUR CHARGER AUTOMATIQUEMENT LES CLASSES  ***************/
 function __autoload($class) {	
-	$chemin = dirname(dirname(__FILE__)).'/modele/classes/';
-	require_once($chemin.$class.'.class.php');	
+	$chemin = dirname(dirname(__FILE__));
+	if((stripos($class,'dao') !== false) && (stripos($class,'Controllersec') === false) && (stripos($class,'core') === false)) {
+		$chemin .= '/application/models/';
+	}
+
+	elseif ((stripos($class,'dao') === false) && (stripos($class,'Controllersec') === false) && (stripos($class,'core') !== false )) {
+		$chemin .= '/core/';
+	}
+
+	elseif ((stripos($class,'dao') === false) && (stripos($class,'core') === false) && (stripos($class,'Controllersec') !== false )) {
+		$chemin .= '/application/controller/';
+	}
+	require_once($chemin.$class.'.class.php');
 }
 
 
-ConnectDb::$DBNAME = $dbName;
-ConnectDb::$HOST = $host;
-ConnectDb::$LOGIN = $login;
-ConnectDb::$PASSWORD = $password;
+ConnectDbcore::$DBNAME = $dbName;
+ConnectDbcore::$HOST = $host;
+ConnectDbcore::$LOGIN = $login;
+ConnectDbcore::$PASSWORD = $password;
 AbstractDao::$TABLE_PREFIXE = $table_prefixe;
+new Core();
+
+
