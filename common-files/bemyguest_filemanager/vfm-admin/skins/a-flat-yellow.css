@@ -1,0 +1,63 @@
+ /**
+ * VFM - veno file manager SKIN
+ 	- skin: a-flat-yellow.css
+ 	- author: @NicolaFranchini
+ 	- author URI: http://www.veno.it/
+ 	- version: 1.2
+ */
+body{
+	background: #fff48a;
+}
+a{
+	color: #3d2302;
+}
+a:hover, a:active, a:focus{
+	color: #7b713c;
+	text-decoration: none;
+}
+.del a{
+	color:#820104;
+}
+.del a:hover{
+	color:#ff3513;
+}
+.btn-primary{
+	background: #c59d3f;
+	border-color: #b4903b;
+}
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open .dropdown-toggle.btn-primary{
+	background: #b4903b;
+	border-color: #b4903b;
+}
+.uploadarea, .tableblock{
+	background: #ffdf92;
+}
+.table-striped > tbody > tr:nth-child(2n+1) > td, .table-striped > tbody > tr:nth-child(2n+1) > th {
+    background-color: #fff092;
+}
+.table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+    border: none;
+}
+
+.dataTables_paginate > a, .dataTables_paginate > span > a {
+	border: none;
+}
+.dataTables_paginate > .paginate_active, .dataTables_paginate > span > .paginate_active {
+    background-color: #fff092;
+
+}
+.btn-success{
+	background-color: #c7c62c;
+	border-color: #c0c12b;
+}
+.btn-success:hover, .btn-success:focus, .btn-success:active, .btn-success.active, .open .dropdown-toggle.btn-success{
+	background-color: #b1b228;
+	border-color: #c0c12b;
+}
+hr{
+	border-color: #e6db7e;
+}
+.overdrag{
+	background:#f7f560;
+	background: rgba(247,245,90,0.5);
+}

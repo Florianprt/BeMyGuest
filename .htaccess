@@ -1,0 +1,24 @@
+#RewriteEngine on
+#RewriteRule ^([a-zA-Z0-9\-\_\]*)$ index.php?page=$1
+
+
+################
+################ REWRITE URL
+################
+Options +FollowSymlinks
+RewriteEngine on
+
+RewriteRule ^home$ index.php
+RewriteRule ^search$ ?page=search
+RewriteRule ^connect$ ?page=connect
+RewriteRule ^dish$ ?page=dish
+RewriteRule ^profil$ ?page=profil
+
+RewriteRule ^user/$ ?module=user&page=index
+RewriteRule ^user/createdish/$ ?module=user&page=create_dish
+RewriteRule ^user/dish/$ ?module=user&page=dish
+RewriteRule ^user/profil/$ ?module=user&page=profil
+RewriteRule ^user/account/$ ?module=user&page=account
+
+
+RewriteRule ^admin/file/$ ?module=admin&page=file

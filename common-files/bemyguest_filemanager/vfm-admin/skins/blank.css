@@ -1,0 +1,40 @@
+ /**
+ * VFM - veno file manager SKIN
+ 	- skin: blank.css
+ 	- author: @NicolaFranchini
+ 	- author URI: http://www.veno.it/
+ 	- version: 1.0
+ */
+ body{
+ 	background: #fcfcfc;
+ }
+a{
+	color: #767d7f;
+}
+a:hover, a:active, a:focus{
+	color: #414e52;
+	text-decoration: none;
+}
+
+.del a{
+	color:#820104;
+}
+.del a:hover{
+	color:#ff3513;
+}
+.btn-primary{
+	background: #4a4848;
+	border-color: #444444;
+	color: #eaeaea;
+}
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open .dropdown-toggle.btn-primary{
+	background: #383737;
+	border-color: #514d4a;
+}
+.overdrag{
+	background:#fff;
+	background: rgba(255,255,255,0.5);
+}
+.overdrag:after {
+  color: #313131;
+}
