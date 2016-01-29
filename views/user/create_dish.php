@@ -58,18 +58,7 @@
                           <div class="form-group col-md-6 p-l-0">
                             <label for="dishquantity">Dish quantity</label>
                             <i class="icon-info m-l-30" rel="popover" data-container="body" data-toggle="popover" data-placement="right" data-content="The quantity of portion" data-original-title="Dish quantity"></i>
-                            <select class="form-control form-white" id="quantity" name="quantity" required data-parsley-group="block0">
-                              <option value="1">1</option>
-                              <option value="2">2</option>
-                              <option value="3">3</option>
-                              <option value="4">4</option>
-                              <option value="5">5</option>
-                              <option value="6">6</option>
-                              <option value="7">7</option>
-                              <option value="8">8</option>
-                              <option value="9">9</option>
-                              <option value="10">10</option>
-                            </select>
+                            <input type="text" value="<?php echo $dishquantity ?>" data-step="1" class="numeric-stepper form-control form-white" name="quantity"/>
                           </div>
                           <div class="form-group col-md-6 p-r-0">
                             <label for="dishquantity">Dish price</label>

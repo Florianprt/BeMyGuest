@@ -7,6 +7,7 @@ define("DEFAULT_MODULE", "pages");
 
 define("DEFAULT_AVATAR", "common-files/bemyguest_filemanager/uploads/user/default/avatar.jpg");
 define("DEFAULT_LINK_FILE", "common-files/bemyguest_filemanager/uploads/user/");
+define("DEFAULT_FILE_MANAGER", "common-files/bemyguest_filemanager/uploads/website/");
 
 define('ROOT', str_replace('index.php', '', $_SERVER['SCRIPT_NAME']));
 define('WEBROOT', str_replace('index.php', '', $_SERVER['SCRIPT_FILENAME']));

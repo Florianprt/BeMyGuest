@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="common-files/css/styles.css"/>
     <link rel="stylesheet" href="common-files/css/custom.css"/>
     <link href="common-files/plugins/magnific/magnific-popup.min.css" rel="stylesheet">
+    <link href="common-files/user/plugins/dropzone/dropzone.min.css" rel="stylesheet">
+
 
     <!-- BEGIN PAGE STYLE -->
     <link href="common-files/plugins/select2/select2.css" rel="stylesheet">
@@ -16,13 +18,14 @@
     <link href="common-files/plugins/ion.rangeSlider-2.1.2/css/ion.rangeSlider.css" rel="stylesheet">
     <link href="common-files/plugins/ion.rangeSlider-2.1.2/css/ion.rangeSlider.skinFlat.css" rel="stylesheet">
     <link rel="stylesheet" href="common-files/plugins/owl/owl.carousel.min.css">
+    <link href="common-files/user/plugins/step-form-wizard/css/step-form-wizard.min.css" rel="stylesheet">
     <!-- END PAGE STYLE -->
   </head>
   <body>
   <script src="common-files/js/facebookconnect.js"></script>
 
 
-<nav class="topnav fixed-topnav   topnav-top">
+<nav class="topnav fixed-topnav <?php if((isset($data['pages_info']['num']))&&($data['pages_info']['num']==1)){ echo 'transparent';} else{ echo 'no-transparent';}?> topnav-top">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
@@ -40,8 +43,8 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div id="headernoconnect" class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
-        <li class=""><a class="btheader" href="#"><div class="border-yellow  p-l-20 p-r-20 p-10">Yo want to cook?</div></a></li>
-        <li class=""><a href="#">Help</a></li>
+        <li class=""><a class="btheader" href="propose"><div class="border-yellow  p-l-20 p-r-20 p-10">let's get cooking</div></a></li>
+        <li class="help"><a href="#">Help</a></li>
         <li class="inscription"><a href="#">Sign up</a></li>
         <li class="connexion"><a href="#">Sign in</a></li>
       </ul>
@@ -52,14 +55,14 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div  id="headerajaxconnect" class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="display: none !important">
       <ul class="nav navbar-nav navbar-right">
-        <li class=""><a class="btheader" href="#"><div class="border-yellow  p-l-20 p-r-20 p-10">Yo want to cook?</div></a></li>
-        <li class=""><a href="#">Help</a></li>
+        <li class=""><a class="btheader" href="user/createdish/"><div class="border-yellow  p-l-20 p-r-20 p-10">let's get cooking !</div></a></li>
+        <li class="help"><a href="#">Help</a></li>
 
         <!-- BEGIN USER DROPDOWN -->
         <li class="dropdown" id="user-header">
           <a href="#" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
           <img src="common-files/images/people/1.jpg" alt="user image">
-          <span class="username">Hi, John Doe</span>
+          <span id="changeusername" class="username">Hi, John Doe</span>
           </a>
           <ul class="dropdown-menu">
             <li>
@@ -90,8 +93,8 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
-        <li class=""><a class="btheader" href="#"><div class="border-yellow  p-l-20 p-r-20 p-10">Yo want to cook?</div></a></li>
-        <li class=""><a href="#">Help</a></li>
+        <li class=""><a class="btheader" href="user/createdish/"><div class="border-yellow  p-l-20 p-r-20 p-10">let's get cooking !</div></a></li>
+        <li class="help"><a href="#">Help</a></li>
 
         <!-- BEGIN USER DROPDOWN -->
         <li class="dropdown" id="user-header">

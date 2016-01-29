@@ -39,7 +39,7 @@
 .formulairehome .prepend-icon input, .formulairehome .prepend-icon span, .formulairehome .prepend-icon select {
     padding-left: 48px;
 }
-.formulairehome .searchbuton a{
+.formulairehome .searchbuton a,.formulairehome .searchbuton button{
 	width: 100%;
 }
 
@@ -47,6 +47,9 @@
     padding-top: 12px !important;
     font-size: 14px;
     padding-bottom: 12px !important;
+}
+.formulairehome .newsletter{
+    padding-bottom: 13px !important;
 }
 .formulairehome .form-control:focus{
 	border-color:rgba(85, 85, 85, 0);
@@ -63,6 +66,7 @@
 .select2-container:focus{
 	outline: none;
 }
+.icon_rond{display: table-cell;vertical-align: middle;border: 2px solid #ee6416; border-radius : 50%; width : 150px ; height : 150px;}
 /*** DEBUT FORM WHERE ****/
 #nearhere{width: 100%;padding : 4px; background-color: white; display: none;position:absolute;box-shadow: rgba(0, 0, 0, 0.14902) 0px 4px 5px 0px;}
 #nearhereinside{width: 100%;padding: 5px 7px 4px; background-color: #2B2E33; text-align: left;cursor: pointer;}
@@ -78,7 +82,8 @@
 /*** DEBUT FORM DATE  *****/
 #calendarform{display: none;}
 .ui-state-active{background: #D0D0D0}
-.ui-datepicker{width: 30%;font-family: 'Monda', sans-serif; text-align: center; background: #fff; margin: 0 0 10px 0}
+.ui-datepicker{font-family: 'Monda', sans-serif; text-align: center; background: #fff; margin: 0 0 10px 0}
+#datepicker .ui-datepicker{width: 30%;}
 .ui-datepicker a{color: #555;}
 /*.ui-datepicker-calendar{width: 100%;}*/
 .ui-datepicker-group{margin: 0 0 10px 0;background: #fff;}
@@ -142,7 +147,7 @@
 	text-align: center;
 }
 .error{
-	border-color: #8F2929;
+	border-color: #8F2929 !important;
 }
 .error::-webkit-input-placeholder{color:#8F2929 !important;}
 .error:-moz-placeholder {color:#8F2929 !important;}
@@ -171,6 +176,7 @@
 background-image: url("../images/img-map.jpg");
 background-size: cover;
 }
+#leftpart{position:fixed;}
 .search_prix
 {
 	width:25%;
@@ -197,7 +203,13 @@ background-size: cover;
     background-image: url("../images/people/1.jpg");
     background-size: contain;
 }
-
+@media screen and (max-width: 1000px) {
+}
+@media  (max-width: 770px) {
+	#leftpart{position: relative !important;}
+}
+.map{height: 400px}
+#gifgeoloc{width:20px;position:absolute;top:13px;left:30px}
 
 /******************************************************/
 /****************     PAGE PLAT  **********************/
@@ -210,7 +222,53 @@ background-size: cover;
 	font-size: 17px;
 }
 
+/******************************************************/
+/****************     PAGE PLAT  **********************/
+/******************************************************/
+.namepeople{
+	text-transform: uppercase;
+	font-size: 17px;
+}
 
+/******************************************************/
+/****************     FOOTER  **********************/
+/******************************************************/
+.footer{
+	background-color: #28292A;
+}
+.footer p , .footer h4, .footer a{
+	color: white;
+}
+.footer a:hover{
+	color: #ee6416;
+}
+.footer h4{
+	font-weight: 500;
+	text-transform: uppercase;
+}
+.iconfooter{
+	font-size: 30px;
+}
+.iconfooter a{
+	margin: 0px 10px 10px 0px;
+}
 
-
-
+/********************************************************/
+/**************** FORM **********************************/
+/********************************************************/
+.label-primary {
+    background-color: #ee6416;
+}
+.label {
+    font-weight: 500;
+}
+.label {
+    font-size: 100%;
+}
+.parsley-required{
+	list-style: none;
+	color: #8F2929;
+}
+.popover-title{
+	padding: 0px 10px 0px 10px;
+}

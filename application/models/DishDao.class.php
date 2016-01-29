@@ -25,12 +25,12 @@ class DishDao  extends AbstractDao {
 		return $result;
 	}
 
-	public function InsertDish($id, $name, $adress, $zipcode ,$city,$ingredients,$description,$price,$quantity ,$dishnewquantity, $dishbegin, $dishfinish , $dishactive) {
+	public function InsertDish($id, $name, $adress, $zipcode ,$city,$ingredients,$description,$price,$quantity ,$dishnewquantity, $dishbegin, $dishfinish , $dishactive,$dishlat,$dishlong) {
 		$pdo = $this->getPdo();
 		$sth = $pdo->prepare("
 		INSERT INTO ".self::$TABLE_PREFIXE.$this->_table." 
-		(bmg_user_idbmg_user ,	dishname , dishadress , dishzipcode ,dishcity,	dishingredients, dishdesc,dishprice, dishquantity , dishnewquantity, dishbegin, dishfinish ,dishactive) 
-		VALUES ( :bmg_user_idbmg_user , :dishname , :dishadress , :dishzipcode , :dishcity, :dishingredients, :dishdesc, :dishprice, :dishquantity , :dishnewquantity, :dishbegin, :dishfinish , :dishactive);");
+		(bmg_user_idbmg_user ,	dishname , dishadress , dishzipcode ,dishcity,	dishingredients, dishdesc,dishprice, dishquantity , dishbuy, dishbegin, dishfinish ,dishactive,dishlat,dishlong) 
+		VALUES ( :bmg_user_idbmg_user , :dishname , :dishadress , :dishzipcode , :dishcity, :dishingredients, :dishdesc, :dishprice, :dishquantity , :dishbuy, :dishbegin, :dishfinish , :dishactive,:dishlat,:dishlong);");
 		$sth->bindParam('bmg_user_idbmg_user',$id);
 		$sth->bindParam('dishname',$name);
 		$sth->bindParam('dishadress',$adress);
@@ -40,10 +40,12 @@ class DishDao  extends AbstractDao {
 		$sth->bindParam('dishdesc',$description);
 		$sth->bindParam('dishprice',$price);
 		$sth->bindParam('dishquantity',$quantity);
-		$sth->bindParam('dishnewquantity',$dishnewquantity);
+		$sth->bindParam('dishbuy',$dishnewquantity);
 		$sth->bindParam('dishbegin',$dishbegin);
 		$sth->bindParam('dishfinish',$dishfinish);
 		$sth->bindParam('dishactive',$dishactive);
+		$sth->bindParam('dishlat',$dishlat);
+		$sth->bindParam('dishlong',$dishlong);
 		$sth->execute();
 		$iddish = $pdo->lastInsertId();
 		rename(DEFAULT_LINK_FILE.$id.'/dish/new',DEFAULT_LINK_FILE.$id.'/dish/'.$iddish);
@@ -62,11 +64,11 @@ class DishDao  extends AbstractDao {
 		return true;
 	}
 
-	public function updatedish($id, $name, $adress, $zipcode ,$city,$ingredients,$description,$price,$quantity ,$dishnewquantity, $dishbegin, $dishfinish , $dishactive) {
+	public function updatedish($id, $name, $adress, $zipcode ,$city,$ingredients,$description,$price,$quantity , $dishbegin, $dishfinish , $dishactive,$dishlat,$dishlong) {
 		$pdo = $this->getPdo();
 		$sth = $pdo->prepare("
 		UPDATE ".self::$TABLE_PREFIXE.$this->_table." 
-		SET	dishname =:dishname, dishadress=:dishadress , dishzipcode=:dishzipcode ,dishcity=:dishcity,	dishingredients=:dishingredients, dishdesc=:dishdesc,dishprice=:dishprice, dishquantity=:dishquantity , dishnewquantity=:dishnewquantity, dishbegin=:dishbegin, dishfinish=:dishfinish ,dishactive=:dishactive WHERE idbmg_dish=:idbmg_dish");
+		SET	dishname =:dishname, dishadress=:dishadress , dishzipcode=:dishzipcode ,dishcity=:dishcity,	dishingredients=:dishingredients, dishdesc=:dishdesc,dishprice=:dishprice, dishquantity=:dishquantity , dishbegin=:dishbegin, dishfinish=:dishfinish ,dishactive=:dishactive,dishlat=:dishlat,dishlong=:dishlong WHERE idbmg_dish=:idbmg_dish");
 		$sth->bindParam('idbmg_dish',$id);
 		$sth->bindParam('dishname',$name);
 		$sth->bindParam('dishadress',$adress);
@@ -76,10 +78,11 @@ class DishDao  extends AbstractDao {
 		$sth->bindParam('dishdesc',$description);
 		$sth->bindParam('dishprice',$price);
 		$sth->bindParam('dishquantity',$quantity);
-		$sth->bindParam('dishnewquantity',$dishnewquantity);
 		$sth->bindParam('dishbegin',$dishbegin);
 		$sth->bindParam('dishfinish',$dishfinish);
 		$sth->bindParam('dishactive',$dishactive);
+		$sth->bindParam('dishlat',$dishlat);
+		$sth->bindParam('dishlong',$dishlong);
 		$sth->execute();
 
 		return true;

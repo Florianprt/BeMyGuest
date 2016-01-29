@@ -18,14 +18,17 @@ h4{font-size:18px;line-height:30px}
 h5{font-size:16px;line-height:25px}
 .height-full {min-height: 600px;}
 .displaynone{display: none !important;}
+.allwidth{width :100%;}
 p{color :#666;}
 
 /********* BACKGROUND **********/
 .bg-purple{background: #763568}
 .bg-yellow{background: #ee6416}
-.bg-white{background-color: #FFF;color:#28292A;}
+.bg-white{background-color: #FFF !important;color:#28292A;}
 
 /********* Text **********/
+.c-purple{color: #763568;}
+.c-orange{color: #ee6416;}
 .t-black{color : #28292A !important;}
 .t-grey{color : #666 !important;}
 .font-open {font-family: 'Open Sans',arial;}
@@ -107,6 +110,7 @@ h1.home-title{font-size:30px;color: white;text-transform: uppercase;font-weight:
 .m-t-70{margin-top:70px !important;}
 .m-t-80{margin-top:80px !important;}
 .m-t-100{margin-top:100px !important;}
+.m-t-150{margin-top:150px !important;}
 
 /****  Margin Bottom  ****/
 .m-b-0 {margin-bottom:0px !important;}
@@ -121,6 +125,7 @@ h1.home-title{font-size:30px;color: white;text-transform: uppercase;font-weight:
 .m-b-50 {margin-bottom:50px !important;}
 .m-b-60 {margin-bottom:60px !important;}
 .m-b-80 {margin-bottom:80px !important;}
+.m-b-70 {margin-bottom:70px !important;}
 .m-b-100{margin-bottom:100px !important;}
 .m-b-140{margin-bottom:140px !important;}
 .m-b-245 {margin-bottom:245px !important;}
@@ -200,6 +205,7 @@ h1.home-title{font-size:30px;color: white;text-transform: uppercase;font-weight:
 .bordertransparent{border:1px solid #efefef!important; background-color: transparent;}
 .border-primary{border-color:#319DB5; background-color: #FFF}
 .border-gray{border:1px solid #efefef}
+.border-orange{border:1px solid #ee6416 !important}
 .border-green{border:1px solid #87D37C; background-color: #FFF}
 .border-yellow{border:1px solid #ee6416; background-color: transparent; color: #ee6416}
 .border-purple{border:1px solid #763568; background-color: #FFF}
@@ -393,7 +399,7 @@ h1.home-title{font-size:30px;color: white;text-transform: uppercase;font-weight:
 
 /*******  LIST       ************/
 .list-two {margin-left: 0px;margin-top: 20px;}
-.list-two li {float: left;margin-bottom: 20px;padding: 0 27px;position: relative;width: 50%;text-align: left;list-style-type: none;}
+.list-two li {height: 80px;float: left;margin-top: 20px;padding: 0 27px;position: relative;width: 50%;text-align: left;list-style-type: none;}
 .list-two li:after {height: 18px;position: absolute;width: 18px;content: "\f105";font-family: "FontAwesome";color: #929292;text-align: center;font-size: 11px;line-height: 18px;left: 0;top: 5px;text-indent: 1px;}
 
 /******* OVERLAY *************/

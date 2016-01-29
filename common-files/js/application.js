@@ -3,7 +3,7 @@
 
 $(document).ready(function() {
 
-    navbarScroll(topnav, topnavHeight);
+    //navbarScroll(topnav, topnavHeight);
   
   	if($.fn.select2){
         $('select:not(.select-picker)').each(function(){
@@ -32,6 +32,11 @@ $(window).scroll(function() {
 
 });
 
+    $('.scrollToTop').click(function(){
+        $('html, body').animate({scrollTop : 0},800);
+        return false;
+    });
+
 
 
 
@@ -41,10 +46,10 @@ $(window).scroll(function() {
         if (topnav.length > 0) {
             if(topScroll >= topnavHeight) {
                 topnav.removeClass('topnav-top');
-                if(!topnav.hasClass('bg-black') && !topnav.hasClass('bg-white')) topnav.removeClass('transparent');
+                if(!topnav.hasClass('bg-black') && !topnav.hasClass('no-transparent')) topnav.removeClass('transparent');
             } else {
                 topnav.addClass('topnav-top');
-                if(!topnav.hasClass('bg-black') && !topnav.hasClass('bg-white')) topnav.addClass('transparent');
+                if(!topnav.hasClass('bg-black') && !topnav.hasClass('no-transparent')) topnav.addClass('transparent');
             }
         }
     };

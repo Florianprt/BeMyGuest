@@ -56,3 +56,18 @@ else if(isset($_POST['email_adresse_connect'])){
     	echo $e->getMessage();
 	}
 }
+
+//NEWSLETTER
+if (isset($_POST['emailnewsletter'])) {
+	
+	$email = $_POST['emailnewsletter'];
+	$nbr = 0;
+
+	$newsletterdao = new NewsletterDao();
+	$fctinsert = $newsletterdao->checkifexist($email , $nbr);
+	
+	if($fctinsert){echo 'nopb';}
+	else{echo 'pb';}
+
+}
+

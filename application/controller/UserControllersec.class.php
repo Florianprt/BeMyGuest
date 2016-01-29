@@ -12,10 +12,14 @@ class UserControllersec extends Core
     public function __construct()
     {
         $user = new UserDao();
-        $partcookie =  explode("|", $_COOKIE['log']);
-        $this->id = substr($partcookie[0], 5);
-        $this->adresse_email = end($partcookie);
-
+        if (isset($_COOKIE['log'])) {
+            $partcookie =  explode("|", $_COOKIE['log']);
+            $this->id = substr($partcookie[0], 5);
+            $this->adresse_email = end($partcookie);
+        }
+        else{
+            header('location: ../');
+        }
         $information = $user->getById($this->id);
 
         foreach($information as $item) { 
@@ -84,8 +88,15 @@ class UserControllersec extends Core
             $dishfinish = stripslashes($_POST['dishfinish']);
             $dishactive = 1;
 
+            $address = str_replace(" ", "+", $adress.'+'.$city.'+'.$zipcode);
 
-            $insertdish = $dish->InsertDish($this->id, $name, $adress, $zipcode ,$city , $ingredients , $description, $price, $quantity, $dishnewquantity, $dishbegin, $dishfinish ,$dishactive);
+            $json = file_get_contents("http://maps.google.com/maps/api/geocode/json?address=$address&sensor=false&region=$city");
+            $json = json_decode($json);
+            $lat = $json->{'results'}[0]->{'geometry'}->{'location'}->{'lat'};
+            $long = $json->{'results'}[0]->{'geometry'}->{'location'}->{'lng'};
+
+
+            $insertdish = $dish->InsertDish($this->id, $name, $adress, $zipcode ,$city , $ingredients , $description, $price, $quantity, $dishnewquantity, $dishbegin, $dishfinish ,$dishactive,$lat,$long);
 
             if (isset($insertdish)) {
                 $messagesession = $Flashsession->setFlash('Perfect , your dish is online ! ' ,'dark');
@@ -135,7 +146,7 @@ class UserControllersec extends Core
             $zipcode = stripslashes($_POST['zipcode']);
             $ingredients = stripslashes($_POST['ingredients']);
             $quantity = stripslashes($_POST['quantity']);
-            $dishnewquantity= $quantity;
+            $dishbuy = stripslashes($_POST['dishbuy']);
             $price = stripslashes($_POST['price']);
             $description = stripslashes($_POST['description']);
             $dishbegin = stripslashes($_POST['dishbegin']);
@@ -146,13 +157,17 @@ class UserControllersec extends Core
             else{
               $dishactive = 0;
             }
+            $quantity = $quantity+$dishbuy;
+            $address = str_replace(" ", "+", $adress.'+'.$city.'+'.$zipcode);
+            $json = file_get_contents("http://maps.google.com/maps/api/geocode/json?address=$address&sensor=false&region=$city");
+            $json = json_decode($json);
+            $lat = $json->{'results'}[0]->{'geometry'}->{'location'}->{'lat'};
+            $long = $json->{'results'}[0]->{'geometry'}->{'location'}->{'lng'};
 
-            $modifydish = $dish->updatedish($iddish, $name, $adress, $zipcode ,$city , $ingredients , $description, $price, $quantity, $dishnewquantity, $dishbegin, $dishfinish ,$dishactive);
+            $modifydish = $dish->updatedish($iddish, $name, $adress, $zipcode ,$city , $ingredients , $description, $price, $quantity, $dishbegin, $dishfinish ,$dishactive,$lat,$long);
             if ($modifydish) {
                 header("Refresh:0");
             }
-
-
         }
 
         $data = array (

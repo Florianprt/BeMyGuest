@@ -34,11 +34,13 @@
               $dishdesc = $item['dishdesc'];
               $dishprice = $item['dishprice'];
               $dishquantity = $item['dishquantity'];
-              $dishnewquantity = $item['dishnewquantity'];
+              $dishbuy = $item['dishbuy'];
               $dishbegin = $item['dishbegin'];
               $dishfinish = $item['dishfinish'];
               $dishactive = $item['dishactive'];
               $today = date("Y-m-d H:i:s");
+
+              $dishquantity = $dishquantity - $dishbuy;
 
               array_push($tabdatebegin, $dishbegin);
               array_push($tabdatefinish, $dishfinish);
@@ -127,17 +129,6 @@
                                   </span>
                                   </label>
                                 </div>
-
-
-                                <!--<div class="onoffswitch" >
-                                  <input type="checkbox" name="dishactive" value="1" class="onoffswitch-checkbox"  id="myonoffswitch1" <?php if(((isset($dishactive))&&($dishactive==1))||(!isset($dishactive ))){ ?>checked=""<?php } ?>>
-                                  <label class="onoffswitch-label" for="myonoffswitch1">
-                                  <span class="onoffswitch-inner">
-                                  <span class="onoffswitch-active"><span class="onoffswitch-switch" label>ON</span></span>
-                                  <span class="onoffswitch-inactive"><span class="onoffswitch-switch">OFF</span></span>
-                                  </span>
-                                  </label>
-                                </div>-->
                               </div>
                               <div class="col-md-12" >
                                 <h3><strong>Dish </strong> image</h3>
@@ -176,18 +167,8 @@
                               <div class="form-group col-md-6 p-l-0">
                                 <label for="dishquantity">Dish quantity</label>
                                 <i class="icon-info m-l-30" rel="popover" data-container="body" data-toggle="popover" data-placement="right" data-content="The quantity of portion" data-original-title="Dish quantity"></i>
-                                <select class="form-control form-white" id="quantity" name="quantity" required data-parsley-group="block0">
-                                  <option value="1">1</option>
-                                  <option value="2">2</option>
-                                  <option value="3">3</option>
-                                  <option value="4">4</option>
-                                  <option value="5">5</option>
-                                  <option value="6">6</option>
-                                  <option value="7">7</option>
-                                  <option value="8">8</option>
-                                  <option value="9">9</option>
-                                  <option value="10">10</option>
-                                </select>
+                                <input value="<?php echo $dishbuy ?>" name="dishbuy" style="display:none">
+                                <input type="text" value="<?php echo $dishquantity ?>" data-step="1" class="numeric-stepper form-control form-white" name="quantity"/>
                               </div>
                               <div class="form-group col-md-6 p-r-0">
                                 <label for="dishquantity">Dish price</label>
@@ -265,12 +246,13 @@
               $dishdesc = $item['dishdesc'];
               $dishprice = $item['dishprice'];
               $dishquantity = $item['dishquantity'];
-              $dishnewquantity = $item['dishnewquantity'];
+              $dishbuy = $item['dishbuy'];
               $dishbegin = $item['dishbegin'];
               $dishfinish = $item['dishfinish'];
               $dishactive = $item['dishactive'];
               $today = date("Y-m-d H:i:s");
 
+              $dishquantity = $dishquantity - $dishbuy;
             
               $datebegin = new DateTime($dishbegin);
               $datefinish = new DateTime($dishfinish);
@@ -296,7 +278,7 @@
                     <?php }else{?>
                     <p class="c-green">Start in <?php echo $datebeginin;?> <br>Finish in <?php echo $datefinishin;?></p>
                     <?php }?>
-                      <p>For : <?php echo $dishquantity;?>  person & rest  <?php echo $dishnewquantity;?> quantity</p>
+                      <p>Rest  <?php echo $dishquantity;?> quantity</p>
                     </div>
                   </div>
                 </div>

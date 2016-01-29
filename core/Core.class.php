@@ -27,7 +27,7 @@ class Core
         if (method_exists($thecontroler, $action)) {
 
             //partie admin pour empecher acces si pas connect
-            if (($module=='User')||($module=='Admin')) {
+            if (($module=='User')) {
                 if (isset($_COOKIE['log'])) {
                     $check_real_cookie = new CookieDao($_COOKIE['log']);
                     $fctcheckgooddcookie = $check_real_cookie->checkgoodcookie();
@@ -40,7 +40,7 @@ class Core
                     }
                 }
                 else{
-                    $this->view('page/connect.php');
+                    header('location: ../');
                 }
             }
 

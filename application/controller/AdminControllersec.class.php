@@ -11,8 +11,6 @@ class AdminControllersec extends Core
 
     public function file()
     {   
-
-        
         $this->view('admin/file.php');
     }
 

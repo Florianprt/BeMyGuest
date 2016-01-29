@@ -1,5 +1,4 @@
 $(document).ready(function() {
-
     $('.connexion').magnificPopup({
       items: {
       src: '<div class="white-popup">'+
@@ -50,6 +49,25 @@ $(document).ready(function() {
     closeBtnInside: true
     });
 
+    $('.help').magnificPopup({
+      items: {
+      src: '<div class="white-popup">'+
+            '<div class="headerpopup bg-yellow">'+
+              '<h3 class="popup-title">You need some help?</h3>'+
+            '</div>'+
+              '<div class="content-popup row t-center p-40">'+
+                '<div class="col-md-12">'+
+                '<a href="" class="btn btn-orange  btn-transparent allwidth">Who are we?</button>'+
+                '<a href="" class="btn btn-orange  btn-transparent allwidth">How can we use our service?</button>'+
+                '<a href="" class="btn btn-orange  btn-transparent allwidth">Our legal informations</button>'+
+                '<a href="" class="btn btn-orange  btn-transparent allwidth">Contact us</button>'+
+                '</div>'+
+              '</div></div>',
+      type: 'inline'
+    },
+    closeBtnInside: true
+    });
+
 });
 
 ////////////////////////////////////////////// FORMULAIRE D INSCRIPTION ///////////////////////////////////////////////
@@ -94,7 +112,8 @@ $(document).ready(function() {
             if (result!="bueno"){
               $( ".mfp-close" ).trigger( "click" );
               $( "#headernoconnect" ).hide();
-              $( "#headerajaxconnect" ).fadeIn( "slow" );
+              $( "#headerajaxconnect").fadeIn( "slow" );
+              $( "#changeusername").text( "Hi "+ nom+" "+prenom);
 
               //SpaceCakeBaking
               SpaceCakeBaking(result , "log");
@@ -135,6 +154,7 @@ $(document).ready(function() {
 
               //SpaceCakeBaking
               SpaceCakeBaking(result , "log");
+              location.reload();
 
             }
             else if(result=="noexiste"){
@@ -217,5 +237,26 @@ $(document).ready(function() {
   }
 
 
-////// DECONNEXION ///////////
-//$( ".deconnexion" ).click( finishconnexion() );
+////// NEWSLETTER ///////////
+$(document).ready(function(){
+    $("#envoinewsletter").click(function(e){e.preventDefault();var error=false;
+    var regmail = new RegExp('^[a-z0-9]+([_|\.|-]{1}[a-z0-9]+)*@[a-z0-9]+([_|\.|-]{1}[a-z0-9]+)*[\.]{1}[a-z]{2,6}$', 'i');
+    var email=$("#emailnews").val();
+    var alert="form-alert-";
+    if((email.length==0)||(!regmail.test(email))){var error=true;$("#emailnews").addClass('error');$("#emailnews").attr("placeholder", "Please, enter a valid email adress !");}else $("#emailnews").removeClass('error');
+    if(error==false){$("#envoinewsletter").attr({"disabled":"true","value":"Envoi..."});
+    $.post("ajax.php",$("#newsletter").serialize(),function(result){
+      console.log(result);
+      if (result=="nopb"){
+        $("#partnewsletter").hide();
+        $("#partnewslettergood").fadeIn();
+      }
+      else if(result!="nopb"){
+        $('#envoinewsletter').removeAttr("disabled");
+        $(".pbnewsall").show();
+      }
+    })
+  }})
+});
+
+

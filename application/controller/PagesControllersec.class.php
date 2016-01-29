@@ -34,7 +34,7 @@ class PagesControllersec extends Core
         $title = 'Be my guest | Home';
 
         $data = array (
-                "pages_info"  => array("title" => $title),
+                "pages_info"  => array("title" => $title,"num" => "1"),
         );
 
 
@@ -50,12 +50,29 @@ class PagesControllersec extends Core
     public function search()
     {   
         $title = 'Be my guest | Search';
-
         $data = array (
-                "pages_info"  => array("title" => $title),
+                "pages_info"  => array("title" => $title, "nom" => "search" ),
         );
 
-        
+
+        if ((isset($_POST['btnformaccueil']))&&(isset($_POST['where']))&&(isset($_POST['date']))&&($_POST['where']!="")&&($_POST['date']!="")) {
+            
+            if ((isset($_POST['lat']))&&(isset($_POST['lng']))&&($_POST['where']=="Look around")) {
+                $lat = $_POST['lat'];
+                $long = $_POST['lng'];
+            }elseif($_POST['where']!="Look around"){
+                $address = str_replace(" ", "+", $_POST['where']);
+                $json = file_get_contents("http://maps.google.com/maps/api/geocode/json?address=$address&sensor=false&region=");
+                $json = json_decode($json);
+                $lat = $json->{'results'}[0]->{'geometry'}->{'location'}->{'lat'};
+                $long = $json->{'results'}[0]->{'geometry'}->{'location'}->{'lng'};
+            }
+            
+            $datasearch = array (
+                "search"  => array("where" => $_POST['where'], "date" => $_POST['date'], "cb" => $_POST['cb'], "lat" => $lat, "long" => $long),
+            );
+            $data = array_merge($data, $datasearch);
+        }
 
         if (isset($_COOKIE['log'])) {
             $data = array_merge($data, $this->global_information);
@@ -103,14 +120,20 @@ class PagesControllersec extends Core
 
     public function connect()
     {
-
         $title = 'Be my guest | Connect you';
-
         $data = array (
                 "pages_info"  => array("title" => $title),
         );
-
         $this->view('page/connect.php');
+    }
+
+    public function propose()
+    {
+        $title = 'Be my guest | Propose a dish';
+        $data = array (
+                "pages_info"  => array("title" => $title),
+        );
+        $this->view('page/propose.php');
     }
 
 
