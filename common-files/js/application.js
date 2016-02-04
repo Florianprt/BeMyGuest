@@ -53,3 +53,14 @@ $(window).scroll(function() {
             }
         }
     };
+
+/********** Page dish ***************/
+    $( "#selectquantitypayment" ).change(function() {
+        var nombre = $(this).val();
+        var price = $( "#dishpricepayment" ).text();
+        $('#changenewprice').text(nombre*price);
+        $('#priceservicefee').text((nombre*price)*15/100);
+        $('#pricetotal').text(((nombre*price)*15/100)+(nombre*price));
+    });
+/********** Page dish ***************/
+

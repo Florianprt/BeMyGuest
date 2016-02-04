@@ -1,12 +1,4 @@
   <?php include('layout/header.php'); ?>
-<?php 
-/*echo $data;
-echo $_COOKIE['log'].'<br>';
-echo substr($_COOKIE['log'], 5, 1).'<br>';
-$email =  explode("|", $_COOKIE['log']);
-echo end($email);*/
-//print_r($data);
-?>
   <header class="home-header">
       <div class="section-overlay" style="z-index: 0"></div>
     <div class="video-background .. " data-vide-bg="mp4: <?php echo DEFAULT_FILE_MANAGER.'home/video/'?>home , webm: <?php echo DEFAULT_FILE_MANAGER.'home/video/'?>home" data-vide-options="position: 50% 50%" style="height:100%">
@@ -117,7 +109,7 @@ echo end($email);*/
                 <li>Make money with your passion, a dream coming true</li>
                 <li>Reconnect people to their food</li>
               </ul>
-              <a href="propose" class="m-t-20 btn btn-orange btn-transparent">Propose a dish</a>
+              <a href="<?php if(isset($_COOKIE['log'])){ echo 'user/createdish/';} else{ echo 'propose';} ?>" class="m-t-20 btn btn-orange btn-transparent">Propose a dish</a>
             </div>
         </div>
       </div>
@@ -135,7 +127,7 @@ echo end($email);*/
             <h2 class="section-title">The cook of the moment</h2>
             <p class="justify p-20 p-b-0">" Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam bibendum purus sit amet lectus finibus, a consequat lacus luctus. In hac habitasse platea dictumst. Nunc aliquam diam vitae turpis volutpat laoreet. Duis nec tempus turpis, placerat ultricies augue. "</p>
             <p class="c-orange namepeople t-right p-r-20">Maria Delavegas</p>
-            <a href="propose"class="btn btn-orange btn-transparent m-t-20">Become a cooker to ?</a>
+            <a href="<?php if(isset($_COOKIE['log'])){ echo 'user/createdish/';} else{ echo 'propose';} ?>"class="btn btn-orange btn-transparent m-t-20">Become a cooker to ?</a>
           </div>
         </div>
       </div>

@@ -49,18 +49,25 @@ class PagesControllersec extends Core
 
     public function search()
     {   
+
+        $dish = new DishDao();
+
         $title = 'Be my guest | Search';
         $data = array (
                 "pages_info"  => array("title" => $title, "nom" => "search" ),
         );
 
 
-        if ((isset($_POST['btnformaccueil']))&&(isset($_POST['where']))&&(isset($_POST['date']))&&($_POST['where']!="")&&($_POST['date']!="")) {
-            
+        if (isset($_POST['btnformaccueil'])) {
             if ((isset($_POST['lat']))&&(isset($_POST['lng']))&&($_POST['where']=="Look around")) {
                 $lat = $_POST['lat'];
                 $long = $_POST['lng'];
-            }elseif($_POST['where']!="Look around"){
+            }
+            elseif(($_POST['where']=="")||(!isset($_POST['where']))){
+                $lat = DEFAULT_LAT;
+                $long = DEFAULT_LONG;
+            }
+            else{
                 $address = str_replace(" ", "+", $_POST['where']);
                 $json = file_get_contents("http://maps.google.com/maps/api/geocode/json?address=$address&sensor=false&region=");
                 $json = json_decode($json);
@@ -73,6 +80,33 @@ class PagesControllersec extends Core
             );
             $data = array_merge($data, $datasearch);
         }
+        else if (!isset($_POST['btnformaccueil'])){
+            $datasearch = array (
+                "search"  => array("where" => 'Paris', "date" => 'now', "cb" => "1", "lat" => DEFAULT_LAT, "long" => DEFAULT_LONG),
+            );
+            $data = array_merge($data, $datasearch);
+        }
+
+        if($datasearch['search']['date']=="now"){
+            $date = date('Y-m-d');
+        }
+        else{
+            $datearray = explode("/", $datasearch['search']['date']);
+            $date= $datearray[2].'-'.$datearray[0].'-'.$datearray[1];
+        }
+        /*lat+0.02>lat>lat-0.02*/
+        $latmin=$datasearch['search']['lat']-DEFAULT_DIST_LAT;
+        $latmax=$datasearch['search']['lat']+DEFAULT_DIST_LAT;
+        $lngmin=$datasearch['search']['long']-DEFAULT_DIST_LONG;
+        $lngmax=$datasearch['search']['long']+DEFAULT_DIST_LONG; 
+        $searchdish = $dish->searchdish($date, $data['search']['cb'],$latmin,$latmax,$lngmin,$lngmax);
+        $datafunction = array (
+                "function"  => array("search" => $searchdish),
+            );
+        $data = array_merge($data, $datafunction);
+
+
+
 
         if (isset($_COOKIE['log'])) {
             $data = array_merge($data, $this->global_information);
@@ -83,11 +117,59 @@ class PagesControllersec extends Core
 
     public function profil()
     {   
+        $user = new UserDao();
+        $dish = new DishDao();
+        $validate = new ValidateDao();
+
         $title = 'Be my guest | Profil '.'name';
 
         $data = array (
                 "pages_info"  => array("title" => $title),
         );
+
+        if (isset($_GET['id'])) {
+           $searchperson = $user->getById($_GET['id']);
+           foreach ($searchperson as $item) {
+                $nom = $item['nom'];
+                $prenom = $item['prenom'];
+                $ville = $item['ville'];
+                $zipcode = $item['arrondissement'];
+                $date_inscription = $item['date_inscription'];
+                $age = $item['age'];
+                $image = $item['image'];
+                $description = $item['description'];
+            }
+            $dateinsc = new DateTime($date_inscription);
+            $now = new DateTime();
+            $membresince = $dateinsc->diff($now)->format("%Y years and %d days");;
+            $dataperson = array (
+                "person"  => array("nom" => $nom,"prenom" => $prenom, "ville" =>$ville, "zipcode" =>$zipcode , "date_inscription"=>$date_inscription, "age"=>$age, "image"=>$image, "description"=>$description, "membresince" => $membresince),
+            );
+            $data = array_merge($data, $dataperson);
+
+            $nbrdish = $dish->getByUserId($_GET['id']);
+            $i=0;
+            foreach ($nbrdish as $item) {
+                $i++;
+            }
+
+            $getvalidation = $validate->getByUserId($_GET['id']);
+            foreach ($getvalidation as $item) {
+                $facebookvalidate =$item['facebook'];
+                $emailvalidate =$item['email'];
+                $bankinfo =$item['bankinfo'];
+            }
+
+            $databdd = array (
+                "dish"  => array("nombre" => $i),
+                "validation"  => array("facebook" => $facebookvalidate,"email" => $emailvalidate,"bank"=>$bankinfo),
+            );
+
+            $data = array_merge($data, $databdd);
+        }
+        else{
+            header('location: home');
+        }
 
         
 
@@ -100,11 +182,39 @@ class PagesControllersec extends Core
 
     public function dish()
     {   
+        $dish = new DishDao();
+
         $title = 'Be my guest | Dish';
 
         $data = array (
-                "pages_info"  => array("title" => $title),
+                "pages_info"  => array("title" => $title,"nom" => "dish"),
         );
+        if (isset($_GET['id'])) {
+           $searchdish = $dish->getById($_GET['id']);
+           foreach ($searchdish as $item) {
+                $dishname = $item['dishname'];
+                $dishadress = $item['dishadress'];
+                $dishzipcode = $item['dishzipcode'];
+                $dishcity = $item['dishcity'];
+                $dishingredients = $item['dishingredients'];
+                $dishdesc = $item['dishdesc'];
+                $dishprice = $item['dishprice'];
+                $dishquantity = $item['dishquantity'];
+                $dishbegin = $item['dishbegin'];
+                $dishfinish = $item['dishfinish'];
+                $dishlat = $item['dishlat'];
+                $dishlong = $item['dishlong'];
+           }
+           $fulladresse = $dishadress." ".$dishcity." , ".$dishzipcode;
+            $dataproduit = array (
+                "dish"  => array("name" => $dishname,"adresse" => $fulladresse, "ingredient" =>$dishingredients, "desc" =>$dishdesc , "price"=>$dishprice, "quantity"=>$dishquantity, "begin"=>$dishbegin, "finish"=>$dishfinish, "lat"=>$dishlat, "long"=>$dishlong),
+            );
+            $data = array_merge($data, $dataproduit);
+
+        }
+        else{
+            header('location: home');
+        }
 
         
 
@@ -134,6 +244,46 @@ class PagesControllersec extends Core
                 "pages_info"  => array("title" => $title),
         );
         $this->view('page/propose.php');
+    }
+
+    public function valid()
+    {   
+        $title = 'Be my guest | Valid your email';
+        $data = array (
+                "pages_info"  => array("title" => $title),
+        );
+
+        if (isset($_COOKIE['log'])) {
+            $data = array_merge($data, $this->global_information);
+        }
+        if (isset($_GET['id'])) {
+            $validate = new ValidateDao();
+            $fctvalidateeamil = $validate->validateemail($_GET['id']);
+            if($fctvalidateeamil){
+                $this->view('page/valid.php', $data);
+            }
+            else{
+                header("Refresh:0");
+            }
+        }
+        else{
+            header('location: home');
+        }
+    }
+
+    public function payment()
+    {   
+        $title = 'Be my guest | Valid your payment';
+        $data = array (
+                "pages_info"  => array("title" => $title),
+        );
+        if (isset($_COOKIE['log'])) {
+            $data = array_merge($data, $this->global_information);
+        }
+
+
+        $this->view('page/payment.php', $data);
+
     }
 
 

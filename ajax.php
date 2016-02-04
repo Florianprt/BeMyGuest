@@ -19,7 +19,13 @@ if((isset($_POST['quelformulaire']))&&($_POST['quelformulaire'] == 'inscription'
 		$fctinscription = $Inscriptiondao->Inscription();
 		} catch (Exception $e) {
     		echo $e->getMessage();
+    		$idinsert= $e->getMessage();
 		}
+		if ((isset($idinsert))&&($idinsert!="existe")&&($idinsert!="")) {
+			$mail = new MailDao();
+			$envoimail = $mail->mailinsc($adresse_email ,$idinsert);
+		}
+		
 }
 
 

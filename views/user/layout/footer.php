@@ -109,7 +109,7 @@
 
 
     <?php 
-    if ($data['pages_info']['page']=="dish") {
+    if ((isset($data['pages_info']['page']))&&($data['pages_info']['page']=="dish")) {
         for ($i=0; $i < count($iddish) ; $i++) { 
             if ($tabdatefinish[$i]<$now) {
                 $hbegin[$i]= $now->format('H');

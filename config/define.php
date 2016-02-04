@@ -12,6 +12,14 @@ define("DEFAULT_FILE_MANAGER", "common-files/bemyguest_filemanager/uploads/websi
 define('ROOT', str_replace('index.php', '', $_SERVER['SCRIPT_NAME']));
 define('WEBROOT', str_replace('index.php', '', $_SERVER['SCRIPT_FILENAME']));
 
+
+/***  DEFINE LONG &  LAT ****/
+define("DEFAULT_LAT", "48.856331");
+define("DEFAULT_LONG", "2.3482724");
+define("DEFAULT_DIST_LAT", "0.02");
+define("DEFAULT_DIST_LONG", "0.03");
+/***  DEFINE LONG &  LAT ****/
+
 if (SERVER == "DEV") {
     define("DEBUG", true);
     $host 							='localhost';

@@ -3,6 +3,7 @@ class FacebookLogDao  extends AbstractDao {
 
 	protected $_table_un = 'connect';
 	protected $_table_deux = 'user';
+	protected $_table_trois = 'validation';
 	protected $nom = '';
 	protected $prenom = '';
 	protected $adresse_email = '';
@@ -13,7 +14,9 @@ class FacebookLogDao  extends AbstractDao {
 	protected $iduser = '';
 	protected $idconnectuser = '';
 	protected $type = '';
-	protected $null = null;		
+	protected $null = null;
+	protected $result = '';
+	protected $ok = 1;
 	
 	public function __construct($nom , $prenom ,  $adresse_email , $age ,  $idfacebook ,$image, $date_inscription, $type)
 	{
@@ -123,11 +126,24 @@ class FacebookLogDao  extends AbstractDao {
 		$sth->bindParam('idfacebook',$this->idfacebook);
 		$sth->execute();
 		$this->idconnectuser = $pdo->lastInsertId();
-
+		
 		$length = 5;
 		$randomString = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, $length);
-		$result = $randomString.$this->iduser.'|'.$randomString.'|'.crypt($this->idconnectuser);
-		throw new Exception($result);
+		$this->result = $randomString.$this->iduser.'|'.$randomString.'|'.crypt($this->idconnectuser);
+		$this->Insertvalidation();
+		//throw new Exception($result);
+	}
+
+	public function Insertvalidation() {
+		$pdo = $this->getPdo();
+		$sth = $pdo->prepare("
+		INSERT INTO ".self::$TABLE_PREFIXE.$this->_table_trois." 
+		(bmg_user_idbmg_user , facebook ,email) VALUES (:bmg_user_idbmg_user , :facebook , :email);");
+		$sth->bindParam('bmg_user_idbmg_user',$this->iduser);
+		$sth->bindParam('facebook',$this->ok);
+		$sth->bindParam('email',$this->ok);
+		$sth->execute();
+		throw new Exception($this->result);
 	}
 	
 

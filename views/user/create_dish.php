@@ -58,7 +58,7 @@
                           <div class="form-group col-md-6 p-l-0">
                             <label for="dishquantity">Dish quantity</label>
                             <i class="icon-info m-l-30" rel="popover" data-container="body" data-toggle="popover" data-placement="right" data-content="The quantity of portion" data-original-title="Dish quantity"></i>
-                            <input type="text" value="<?php echo $dishquantity ?>" data-step="1" class="numeric-stepper form-control form-white" name="quantity"/>
+                            <input type="text" value="" data-step="1" class="numeric-stepper form-control form-white" name="quantity"/>
                           </div>
                           <div class="form-group col-md-6 p-r-0">
                             <label for="dishquantity">Dish price</label>

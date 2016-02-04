@@ -157,7 +157,6 @@ class UserControllersec extends Core
             else{
               $dishactive = 0;
             }
-            $quantity = $quantity+$dishbuy;
             $address = str_replace(" ", "+", $adress.'+'.$city.'+'.$zipcode);
             $json = file_get_contents("http://maps.google.com/maps/api/geocode/json?address=$address&sensor=false&region=$city");
             $json = json_decode($json);

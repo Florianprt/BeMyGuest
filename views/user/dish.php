@@ -40,8 +40,6 @@
               $dishactive = $item['dishactive'];
               $today = date("Y-m-d H:i:s");
 
-              $dishquantity = $dishquantity - $dishbuy;
-
               array_push($tabdatebegin, $dishbegin);
               array_push($tabdatefinish, $dishfinish);
               array_push($iddish, $id);
@@ -252,7 +250,6 @@
               $dishactive = $item['dishactive'];
               $today = date("Y-m-d H:i:s");
 
-              $dishquantity = $dishquantity - $dishbuy;
             
               $datebegin = new DateTime($dishbegin);
               $datefinish = new DateTime($dishfinish);

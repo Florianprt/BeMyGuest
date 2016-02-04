@@ -42,12 +42,35 @@
       <!--RECHERCHE -->
       <div class="col-md-6 col-sm-7  col-xs-12" style="overflow: scroll;  margin-top: 80px;float:right">
         <div class="row">
-          <?php for ($i=0; $i <15 ; $i++) { ?> 
+          <?php
+            $leslat= array();
+            $leslong = array();
+            $lesname = array();
+            $lesid = array();
+            $produit = false;
+            foreach($data['function']['search'] as $item) { 
+              $produit = true;
+              $id = $item['idbmg_dish'];
+              $idperson = $item['bmg_user_idbmg_user'];
+              $dishname = $item['dishname'];
+              $dishadress = $item['dishadress'];
+              $dishzipcode = $item['dishzipcode'];
+              $dishdesc = $item['dishdesc'];
+              $image = $item['image'];
+              $dishprice = $item['dishprice'];
+              $dishquantity = $item['dishquantity'];
+              $dishlat= $item['dishlat'];
+              $dishlong= $item['dishlong'];
+              array_push($leslat, $dishlat);
+              array_push($leslong , $dishlong);
+              array_push($lesname, $dishname);
+              array_push($lesid , $id);
+          ?> 
           <!-- Single PLAT -->
           <div class="col-sm-6 col-xs-12 m-t-20">
-            <div class="border boxshadow">
+            <div id="page_hover_<?php echo $id?>" class="border boxshadow">
               <div style="height: 200px">
-                <div class="search_prix"><p> 30 €</p></div>
+                <div class="search_prix"><p> <?php echo $dishprice?> €</p></div>
                 <div class="owl-carousel" data-plugin-options='{"autoPlay": false}' style="height:100%">
                   <div class="item">
                     <img src="common-files/images/dish/1.jpg" alt="ecommerce" class="img-responsive">
@@ -61,21 +84,29 @@
                 </div>
               </div>
               <div class="p-20" align="center" style="position: relative">
-              <a href="profil"><div class="smalliconprofil"></div></a>
-              <h4 class="pricing-heading color-scheme t-left">Nom du plat</h4>
-              <p class="justify">Sed a mauris sed metus feugiat congue. Proin semper velit mauris, a commodo turpis placerat vitae. Sed lorem nulla, ultrices in sem eu, luctus aliquam mi . . .</p>
-              <a href="dish"  class="btn btn-purple btn-transparent">Réserver</a>
+              <a href="profil/<?php echo $idperson?>"><div class="smalliconprofil" style="    background-image: url('<?php echo $image;?>');"></div></a>
+              <h4 class="pricing-heading color-scheme t-left"> <?php echo $dishname?></h4>
+              <div class="minidesc"><p class="justify"><?php echo $dishdesc?></p></div>
+              <a href="dish/<?php echo $id?>"  class="btn btn-purple btn-transparent">Booking</a>
               </div>
             </div>
           </div>
           <!-- Single PLAT -->
-          <?php } ?>
+          <?php } 
+          if ($produit==false) {?>
+            <div class="col-md-12">
+              <h2 class="section-title">Sorry but no dish available her or for this date !</h2>
+              <a href="home" class="m-t-20 btn btn-purple btn-transparent">try on over place</a>
+            </div>
+          <?php }?>
         </div>
+        <?php if ($produit==true) {?>
         <div class="row">
-          <div class="col-md-12 m-t-40" style="background-color: #28292A; color:white;height: 60px;">
-            Footer<br>
+          <div class="col-md-12 m-t-40 p-10 t-center" style="background-color: #28292A; color:white;">
+            Be my guest All rights reserved © <?php echo date('Y');?><br>
           </div>
         </div>
+        <?php }?>
       </div>
       <!--RECHERCHE -->
     </section>

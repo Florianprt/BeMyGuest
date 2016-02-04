@@ -1,7 +1,8 @@
 <?php
 class DishDao  extends AbstractDao {
 
-	protected $_table = 'dish';	
+	protected $_table = 'dish';
+	protected $_table_deux ='user';
 	
 	public function listerDish() {
 		return $this->lister();		
@@ -9,8 +10,8 @@ class DishDao  extends AbstractDao {
 	
 	public function getById($id) {
 		$pdo = $this->getPdo();
-		$sth = $pdo->prepare("SELECT * FROM ".self::$TABLE_PREFIXE.$this->_table." WHERE idbmg_user = :idbmg_user");
-		$sth->bindParam('idbmg_user',$id,PDO::PARAM_INT);
+		$sth = $pdo->prepare("SELECT * FROM ".self::$TABLE_PREFIXE.$this->_table." WHERE idbmg_dish = :idbmg_dish");
+		$sth->bindParam('idbmg_dish',$id,PDO::PARAM_INT);
 		$sth->execute();
 		$result = $sth->fetchAll();
 		return $result;
@@ -87,6 +88,20 @@ class DishDao  extends AbstractDao {
 
 		return true;
 
+	}
+
+	public function searchdish($date , $nbr ,$latmin,$latmax,$lngmin,$lngmax) {
+		$pdo = $this->getPdo();
+		$sth = $pdo->prepare("SELECT * FROM ".self::$TABLE_PREFIXE.$this->_table.",".self::$TABLE_PREFIXE.$this->_table_deux." WHERE bmg_user_idbmg_user=idbmg_user and dishbegin<=:date and dishfinish>=:date and dishquantity>=:quantity and dishlat<=:latmax and dishlat>=:latmin and dishlong<=:lngmax and dishlong>=:lngmin and dishactive=1");
+		$sth->bindParam('date',$date,PDO::PARAM_INT);
+		$sth->bindParam('quantity',$nbr);
+		$sth->bindParam('latmin',$latmin);
+		$sth->bindParam('latmax',$latmax);
+		$sth->bindParam('lngmin',$lngmin);
+		$sth->bindParam('lngmax',$lngmax);
+		$sth->execute();
+		$result = $sth->fetchAll();
+		return $result;
 	}
 
 

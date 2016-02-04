@@ -8,18 +8,19 @@
               <div class="col-md-12">
                 <div class="row">
                 <div class="col-md-3 col-sm-3 col-xs-6 col-xs-offset-3 col-sm-offset-0">
-                  <img src="common-files/images/people/1.jpg" class="bd-50p" width="100%" alt="team 1">
+                  <img src="<?php echo $data['person']['image'];?>" class="bd-50p" width="100%" alt="team 1">
                 </div>
                 <div class="col-md-8 col-sm-8 col-xs-12 m-t-40">
-                  <h2 class="title-name">John Doe</h2>
-                  <p>Cuisine à Paris • 75004 & membre depuis 2014</p>
+                  <h2 class="title-name"><?php echo $data['person']['nom'].' '.$data['person']['prenom']?></h2>
+                  <p><?php if ($data['person']['age']!=""){echo 'Is '.$data['person']['age'].' years old & ';} if ($data['person']['ville']!="") { echo 'Live in '.$data['person']['ville'];} if ($data['person']['zipcode']!="") { echo ' • '.$data['person']['zipcode'].' & ';}?>Member since <?php echo $data['person']['membresince']?></p>
                 </div>
+                <a href="#"  class="m-t-20 scrollToTop btn btn-purple btn-transparent">Contact him</a>
                 </div>
               </div>
             </div>
             <div class="row m-t-20">
               <div class="col-md-12 justify">
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur luctus sapien sed velit semper, ac lobortis libero convallis. Nam vulputate eget nibh non porta. Suspendisse pharetra venenatis suscipit. Quisque varius nisl ac purus fermentum, quis auctor sem fringilla. Mauris venenatis et mi a ullamcorper. Pellentesque faucibus ornare velit. Ut ultricies nulla vitae arcu fermentum luctus. Vivamus magna mauris, scelerisque nec aliquam quis, consectetur vitae ante. Nulla facilisi.</p>
+              <p><?php echo$data['person']['description'];?> </p>
               </div>
             </div>
             <div class="row">
@@ -37,8 +38,8 @@
               </div>
               <div class="col-md-4 col-sm-4 p-40">
                 <div class="border-yellow t-center badgeprofil">
-                  <h5 class="p-20">4</h5>
-                  <p>plats</p>
+                  <h5 class="p-20"><?php echo$data['dish']['nombre'];?></h5>
+                  <p>dish</p>
                 </div>
               </div>
             </div>
@@ -60,7 +61,9 @@
               <div class="col-md-10 col-md-offset-2">
                 <div class="border-purple boxshadow t-center p-b-40">
                   <h5 class="title-note-section border-bottom p-10">Vérifications</h5>
-                  Facebook check<br>email check
+                  <?php if($data['validation']['facebook']==1){echo 'Facebook check<br>';} if($data['validation']['email']==1){echo 'Email check<br>';} if($data['validation']['bank']==1){echo 'Bank informations check<br>';}
+                  if(($data['validation']['facebook']==0)&&($data['validation']['email']==0)&&($data['validation']['bank']==0)){ echo 'No checks !';}
+                  ?>
                 </div>
               </div>
             </div>

@@ -65,7 +65,7 @@
     <script src="common-files/user/plugins/step-form-wizard/plugins/parsley/parsley.min.js"></script> <!-- OPTIONAL, IF YOU NEED VALIDATION -->
     <script src="common-files/user/js/pages/form_plugins.js"></script>
     <script src="common-files/plugins/ion.rangeSlider-2.1.2/js/ion-rangeSlider/ion.rangeSlider.min.js"></script>
-    <script src="common-files/js/gma"></script>
+    <script src="common-files/js/simpleCart.min.js"></script>
 
 <script>
   	$(document).ready(function() {
@@ -126,7 +126,7 @@
   <script>
   $(function () {
       var map_map;
-      var latbdd =<?php echo $data['search']['lat']?>;
+      var latbdd = <?php echo $data['search']['lat']?>;
       var longbdd =<?php echo $data['search']['long']?>;
       my_map = new GMaps({
           el: '#my-map',
@@ -145,20 +145,65 @@
           lng: longbdd,
           title: 'Marker with InfoWindow',
           infoWindow: {
-              content: 'You want your dish here!'
+              content: '<h4 class="pricing-heading color-scheme t-left">You want your dish her</h4>'
           }
       });
+
+   <?php for ($i=0; $i <count($leslat) ; $i++) {?>
+      var latdish = <?php echo $leslat[$i]?>;
+      var longdish =<?php echo $leslong[$i]?>;
+      var name = '<?php echo $lesname[$i]?>';
+      var lesid =<?php echo $lesid[$i]?>;
+      // If you want to add a marker
       my_map.addMarker({
-          lat: 48.8757897,
-          lng: 2.3154955,
-          title: 'Dish 1',
+          lat: latdish,
+          lng: longdish,
+          title: 'Dish',
           infoWindow: {
-              content: 'You want your dish here!'
+              content: '<div id="hover_'+lesid+'" class="maphover" ><h4 class="pricing-heading color-scheme t-left">'+name+'</h4><a href="#" class="btn btn-purple btn-transparent">Look it</a></div>'
           }
       });
+  <?php }?>
+      
+  });
+      $( ".maphover" ).hover(function() {
+        var id = $(this).attr('id');
+        console.log(id);
+        $( "#page_"+id ).addClass( "border-orange" );
+    });
+  </script>
+<?php }?>
+<?php if ((isset($data['pages_info']['nom']))&&($data['pages_info']['nom']=="dish")) {?>
+  <script>
+  $(function () {
+      var map_map;
+      var latbdd = <?php echo $data['dish']['lat']?>;
+      var longbdd =<?php echo $data['dish']['long']?>;
+      my_map = new GMaps({
+          el: '#my-map',
+          lat: latbdd,
+          lng: longbdd,
+          zoomControl: true,
+          panControl: false,
+          scrollwheel: false,
+          streetViewControl: false,
+          mapTypeControl: false,
+          overviewMapControl: false
+      });
+      // If you want to add a marker
+      my_map.addMarker({
+          lat: latbdd,
+          lng: longbdd,
+          title: 'Marker with InfoWindow',
+          infoWindow: {
+              content: '<h4 class="pricing-heading color-scheme t-left">The dish awaits you here!</h4>'
+          }
+      });
+      
   });
   </script>
 <?php }?>
+
   <script>
       $( "#nearhereinside" ).click(function() {
         $("#btnsearch").attr({"disabled":"true","value":"Envoi..."});
@@ -177,6 +222,69 @@
         else
           alert("The geolocalisation doesn't work with your devices sorry, but enter an adress!");
       });
+  </script>
+
+  <script>
+    simpleCart({
+    // array representing the format and columns of the cart,
+    // see the cart columns documentation
+    cartColumns: [
+        { attr: "name", label: "Name"},
+        { view: "currency", attr: "price", label: "Price"},
+        { view: "decrement", label: false},
+        { attr: "quantity", label: "Qty"},
+        { view: "increment", label: false},
+        { view: "currency", attr: "total", label: "SubTotal" },
+        { view: "remove", text: "Remove", label: false}
+    ],
+    // "div" or "table" - builds the cart as a 
+    // table or collection of divs
+    cartStyle: "div", 
+    // how simpleCart should checkout, see the 
+    // checkout reference for more info 
+    checkout: { 
+        type: "PayPal" , 
+        email: "you@yours.com" 
+    },
+    // set the currency, see the currency 
+    // reference for more info
+    currency: "USD",
+    // collection of arbitrary data you may want to store 
+    // with the cart, such as customer info
+    data: {},
+    // set the cart langauge 
+    // (may be used for checkout)
+    language: "english-us",
+    // array of item fields that will not be 
+    // sent to checkout
+    excludeFromCheckout: [],
+    // custom function to add shipping cost
+    shippingCustom: null,
+    // flat rate shipping option
+    shippingFlatRate: 0,
+    // added shipping based on this value 
+    // multiplied by the cart quantity
+    shippingQuantityRate: 0,
+    // added shipping based on this value 
+    // multiplied by the cart subtotal
+    shippingTotalRate: 0,
+    // tax rate applied to cart subtotal
+    taxRate: 0,
+    // true if tax should be applied to shipping
+    taxShipping: false,
+    // event callbacks 
+    beforeAdd            : null,
+    afterAdd            : null,
+    load                : null,
+    beforeSave        : null,
+    afterSave            : null,
+    update            : null,
+    ready            : null,
+    checkoutSuccess    : null,
+    checkoutFail        : null,
+    beforeCheckout        : null,
+        beforeRemove           : null
+  });
   </script>
 
   </body>
