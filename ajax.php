@@ -23,7 +23,12 @@ if((isset($_POST['quelformulaire']))&&($_POST['quelformulaire'] == 'inscription'
 		}
 		if ((isset($idinsert))&&($idinsert!="existe")&&($idinsert!="")) {
 			$mail = new MailDao();
+        	$validate = new ValidateDao();
+
+        	$idpersone =  explode("|", $idinsert);
+			$idtype = substr($idpersone[0], 5);
 			$envoimail = $mail->mailinsc($adresse_email ,$idinsert);
+			$fctvalidate = $validate->firstvalidate($idtype);		
 		}
 		
 }
@@ -45,6 +50,17 @@ else if((isset($_POST['id']))&&(isset($_POST['last_name']))&&(isset($_POST['firs
 		$fctinscription = $FacebookLogDao->checkifexist();
 	} catch (Exception $e) {
     	echo $e->getMessage();
+    	$idinsert= $e->getMessage();
+	}
+		
+	if ((isset($idinsert))&&($idinsert!="existe")&&($idinsert!="")) {
+		$mail = new MailDao();
+    	$validate = new ValidateDao();
+    	
+    	$idpersone =  explode("|", $idinsert);
+		$idtype = substr($idpersone[0], 5);
+		$envoimail = $mail->mailinsc($adresse_email ,$idinsert);
+		$fctvalidate = $validate->firstvalidate($idtype);		
 	}
 }
 

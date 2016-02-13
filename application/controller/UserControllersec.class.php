@@ -44,23 +44,25 @@ class UserControllersec extends Core
         $this->view('user/dashboard.php', $data);
     }
 
-    public function create_dish()
+    public function createdish()
     {      
         $Flashsession =  new AlerteCore();
         $dish = new DishDao();
 
+        $data = array (
+                "pages_info"  => array("title" => $this->title),
+        );
+
         //create repository to upload the file
-        if ((empty($_FILES))&&(!isset($_POST['envoyer']))) {
-            $file=DEFAULT_LINK_FILE.$this->id.'/dish/new/';
-            if (is_dir($file)){
+        $file=DEFAULT_LINK_FILE.$this->id.'/dish/new/';
+        if (is_dir($file)){
+            if ((empty($_FILES))&&(!isset($_POST['envoyer']))) {
                 $filedao = new FileDao();
                 $deleteallfile = $filedao->deleteDir($file);
                 mkdir(DEFAULT_LINK_FILE.$this->id.'/dish/new', 0700);
             }
-            else{mkdir(DEFAULT_LINK_FILE.$this->id.'/dish/new', 0700);}
-        }
+        }else{mkdir(DEFAULT_LINK_FILE.$this->id.'/dish/new', 0700);}
         //finish to create repository to upload the file
-
         
         //upload file
         $ds          = DIRECTORY_SEPARATOR;  //1
@@ -92,8 +94,14 @@ class UserControllersec extends Core
 
             $json = file_get_contents("http://maps.google.com/maps/api/geocode/json?address=$address&sensor=false&region=$city");
             $json = json_decode($json);
-            $lat = $json->{'results'}[0]->{'geometry'}->{'location'}->{'lat'};
-            $long = $json->{'results'}[0]->{'geometry'}->{'location'}->{'lng'};
+            if (isset($json->{'results'}[0])) {
+                $lat = $json->{'results'}[0]->{'geometry'}->{'location'}->{'lat'};
+                $long = $json->{'results'}[0]->{'geometry'}->{'location'}->{'lng'}; 
+            }
+            else{
+                $lat = 0;
+                $long = 0;
+            }
 
 
             $insertdish = $dish->InsertDish($this->id, $name, $adress, $zipcode ,$city , $ingredients , $description, $price, $quantity, $dishnewquantity, $dishbegin, $dishfinish ,$dishactive,$lat,$long);
@@ -105,6 +113,12 @@ class UserControllersec extends Core
                 $messagesession = $Flashsession->setFlash('Error , please test again ! ' ,'error');
             }
 
+            /*$msgflash = $Flashsession->flash();
+            $datanotif = array (
+                "pages_notifs"  => array("notifs" => $msgflash),
+            );
+            $data = array_merge($data, $datanotif);*/
+            
             header('location: ../dish/'); 
 
         }
@@ -117,7 +131,7 @@ class UserControllersec extends Core
 
         $data = array_merge($data, $this->global_information);
 
-        $this->view('user/create_dish.php', $data);
+        $this->view('user/createdish.php', $data);
     }
 
 //see his dish
@@ -190,6 +204,11 @@ class UserControllersec extends Core
         $Flashsession =  new AlerteCore();
         $user = new UserDao();
 
+        $data = array (
+                "pages_info"  => array("title" => $this->title),
+        );
+        $data = array_merge($data, $this->global_information);
+
 
 
         // si POST FORMULAIRE
@@ -237,17 +256,17 @@ class UserControllersec extends Core
             if ($updateprofil) {
                 $messagesession = $Flashsession->setFlash('GREAT, the modifications is send ! ' ,'success');
             }
-
+            $msgflash = $Flashsession->flash();
             $datanotif = array (
-                "pages_notifs"  => array("notifs" => $Flashsession->flash()),
+                "pages_notifs"  => array("notifs" => $msgflash),
             );
+            $data = array_merge($data, $datanotif);
 
             header("Refresh:0");
             //header('location: '); 
 
         }
         //FIN DE SI IF POST FORMULAIRE
-
 
         // ON RECUPERE TOUT DE LA BDD
         $information = $user->getById($this->id);
@@ -265,18 +284,16 @@ class UserControllersec extends Core
         }
         // FIN ON RECUPERE TOUT DE LA BDD
 
-        $data = array (
+        $datauser = array (
                 "user_info"  => array("nom" => $this->name, "prenom" => $this->firstname, "email" => $email, "ville" => $ville, "email" => $email, "arrondissement" => $arrondissement, "adresse" => $adresse, "age" => $age, "description" => $description, "image" => $this->image),
-                "pages_info"  => array("title" => $this->title),
         );
 
 
 
-
-        $data = array_merge($data, $this->global_information);
-        if (isset($datanotif)) {
+        $data = array_merge($data, $datauser);
+        /*if (isset($datanotif)) {
         $data = array_merge($data, $datanotif);
-        }
+        }*/
 
         
         $this->view('user/profil.php', $data);
@@ -287,13 +304,126 @@ class UserControllersec extends Core
 //page pour changer ses informations de profil 
     public function account()
     {   
-         $data = array (
-                "notifications"  => array("1" => $n1,),
+        $data = array (
+                "pages_info"  => array("title" => $this->title),
         );
 
+        $bankDao = new BankDao();
+
+        // si POST FORMULAIRE
+        if (isset($_POST['envoyer'])) {
+            $nombank = stripslashes($_POST['nombank']);
+            $prenombank = stripslashes($_POST['prenombank']);
+            $iban = stripslashes($_POST['iban']);
+            $bic = stripslashes($_POST['bic']);
+
+            $sendbankinfo = $bankDao->sendbankinfo($this->id, $nombank , $prenombank , $iban , $bic);
+            if($sendbankinfo){
+                header("Refresh:0");
+            }
+        }
+
+        $selectbankaccount = $bankDao->selectbank($this->id);
+            foreach ($selectbankaccount as $item) {
+                $nombank = $item['nombank'];
+                $prenombank = $item['prenombank'];
+                $iban = $item['iban'];
+                $bic = $item['bic'];
+            }
+        if ((isset($nombank))||(isset($prenombank))||(isset($iban))||(isset($bic))) {
+            $databank = array (
+                "bankinfo"  => array("nombank" => $nombank,"prenombank" => $prenombank,"iban" => $iban,"bic" => $bic),
+            );
+            $data = array_merge($data, $databank);
+        }
         $data = array_merge($data, $this->global_information);
 
         $this->view('user/account.php', $data);
+    }
+
+    public function recomandations()
+    {   
+        $Flashsession =  new AlerteCore();
+        $emailDao = new MailDao();
+
+        $data = array (
+                "pages_info"  => array("title" => $this->title),
+        );
+
+         // si POST FORMULAIRE
+        if (isset($_POST['envoyer'])) {
+            $email = stripslashes($_POST['email']);
+            $sendmail = $emailDao->sendRecoRequest($this->id, $this->name , $this->firstname, $email);
+            if($sendmail){
+                $messagesession = $Flashsession->setFlash('GREAT, the email is send ! ' ,'success');
+            }
+            else{
+                $messagesession = $Flashsession->setFlash('Error please try again ! ' ,'dark');
+            }
+            $msgflash = $Flashsession->flash();
+            $datanotif = array (
+                "pages_notifs"  => array("notifs" => $msgflash),
+            );
+            $data = array_merge($data, $datanotif);
+        }
+
+
+
+        $data = array_merge($data, $this->global_information);
+
+        $this->view('user/recomandations.php', $data);
+    }
+
+    public function purchases()
+    {   
+        $reservationDao = new ReservationDao();
+
+        $data = array (
+                "pages_info"  => array("title" => $this->title),
+        );
+
+        $getresa = $reservationDao->selectresabyBuyid($this->id);
+
+        $i=0;
+        foreach ($getresa as $items) {
+            $i++;
+        }
+
+        $datapage = array (
+                "nbr"  => array("buy" => $i),
+                "function"  => array("sails" => $getresa),
+        );
+
+        $data = array_merge($data, $datapage);
+        $data = array_merge($data, $this->global_information);
+
+        $this->view('user/purchases.php', $data);
+    }
+
+    public function sale()
+    {   
+        $reservationDao = new ReservationDao();
+
+        $data = array (
+                "pages_info"  => array("title" => $this->title),
+        );
+
+        $getresa = $reservationDao->selectresabySaleid($this->id);
+
+        $i=0;
+        foreach ($getresa as $items) {
+            $i++;
+        }
+
+        $datapage = array (
+                "nbr"  => array("buy" => $i),
+                "function"  => array("sails" => $getresa),
+        );
+
+        $data = array_merge($data, $datapage);
+        $data = array_merge($data, $this->global_information);
+
+        $this->view('user/sale.php', $data);
     }
 
 }

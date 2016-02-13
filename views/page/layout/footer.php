@@ -6,19 +6,19 @@
       <div class="col-md-3 col-md-offset-1 p-t-30" style="height:150px">
           <img src="common-files/images/logo/logo2_gris.png" style="width:300px">
       </div>
-      <div class="col-md-2 col-md-offset-1">
+      <div class="col-md-2 col-md-offset-1 col-sm-6 col-xs-5">
         <h4>Menu</h4>
         <p><a href="">Home</a></p>
         <p><a class="inscription" href="">Sign in</a></p>
         <p><a class="connexion" href="">Sign up</a></p>
       </div>
-      <div class="col-md-2">
+      <div class="col-md-2 col-sm-6 col-xs-7">
         <h4>Company Info</h4>
         <p><a href="cgu/">C.G.U</a></p>
         <p><a href="faq/">F.A.Q</a></p>
-        <p><a href="contact/">Contact us</a></p>
+        <p><a class="opencontact" href="#">Contact us</a></p>
       </div>
-      <div class="col-md-3">
+      <div class="col-md-3 col-xs-12">
         <h4>Follow us</h4>
         <p class="iconfooter">
           <a href="https://www.facebook.com/Be-My-Guest-1005277742847211/?ref=aymt_homepage_panel" target="_bank"><i class="fa fa-facebook-square"></i></a>
@@ -66,6 +66,8 @@
     <script src="common-files/user/js/pages/form_plugins.js"></script>
     <script src="common-files/plugins/ion.rangeSlider-2.1.2/js/ion-rangeSlider/ion.rangeSlider.min.js"></script>
     <script src="common-files/js/simpleCart.min.js"></script>
+    <script src="common-files/js/simplecart.js"></script>
+    <script src="common-files/plugins/nivo-lightbox/nivo-lightbox.min.js"></script>
 
 <script>
   	$(document).ready(function() {
@@ -128,6 +130,8 @@
       var map_map;
       var latbdd = <?php echo $data['search']['lat']?>;
       var longbdd =<?php echo $data['search']['long']?>;
+      var markerIcon = 'common-files/markergooglemap/you.png';
+
       my_map = new GMaps({
           el: '#my-map',
           lat: latbdd,
@@ -143,6 +147,7 @@
       my_map.addMarker({
           lat: latbdd,
           lng: longbdd,
+          icon: markerIcon,
           title: 'Marker with InfoWindow',
           infoWindow: {
               content: '<h4 class="pricing-heading color-scheme t-left">You want your dish her</h4>'
@@ -154,11 +159,13 @@
       var longdish =<?php echo $leslong[$i]?>;
       var name = '<?php echo $lesname[$i]?>';
       var lesid =<?php echo $lesid[$i]?>;
+      var markerIcon = 'common-files/markergooglemap/food.png';
       // If you want to add a marker
       my_map.addMarker({
           lat: latdish,
           lng: longdish,
           title: 'Dish',
+          icon: markerIcon,
           infoWindow: {
               content: '<div id="hover_'+lesid+'" class="maphover" ><h4 class="pricing-heading color-scheme t-left">'+name+'</h4><a href="#" class="btn btn-purple btn-transparent">Look it</a></div>'
           }
@@ -179,6 +186,8 @@
       var map_map;
       var latbdd = <?php echo $data['dish']['lat']?>;
       var longbdd =<?php echo $data['dish']['long']?>;
+      var markerIcon = 'common-files/markergooglemap/food.png';
+
       my_map = new GMaps({
           el: '#my-map',
           lat: latbdd,
@@ -195,6 +204,7 @@
           lat: latbdd,
           lng: longbdd,
           title: 'Marker with InfoWindow',
+          icon: markerIcon,
           infoWindow: {
               content: '<h4 class="pricing-heading color-scheme t-left">The dish awaits you here!</h4>'
           }
@@ -224,68 +234,26 @@
       });
   </script>
 
+<?php if ((isset($data['pages_info']['nom']))&&($data['pages_info']['nom']=="payment")) {?>
+
   <script>
-    simpleCart({
-    // array representing the format and columns of the cart,
-    // see the cart columns documentation
-    cartColumns: [
-        { attr: "name", label: "Name"},
-        { view: "currency", attr: "price", label: "Price"},
-        { view: "decrement", label: false},
-        { attr: "quantity", label: "Qty"},
-        { view: "increment", label: false},
-        { view: "currency", attr: "total", label: "SubTotal" },
-        { view: "remove", text: "Remove", label: false}
-    ],
-    // "div" or "table" - builds the cart as a 
-    // table or collection of divs
-    cartStyle: "div", 
-    // how simpleCart should checkout, see the 
-    // checkout reference for more info 
-    checkout: { 
-        type: "PayPal" , 
-        email: "you@yours.com" 
-    },
-    // set the currency, see the currency 
-    // reference for more info
-    currency: "USD",
-    // collection of arbitrary data you may want to store 
-    // with the cart, such as customer info
-    data: {},
-    // set the cart langauge 
-    // (may be used for checkout)
-    language: "english-us",
-    // array of item fields that will not be 
-    // sent to checkout
-    excludeFromCheckout: [],
-    // custom function to add shipping cost
-    shippingCustom: null,
-    // flat rate shipping option
-    shippingFlatRate: 0,
-    // added shipping based on this value 
-    // multiplied by the cart quantity
-    shippingQuantityRate: 0,
-    // added shipping based on this value 
-    // multiplied by the cart subtotal
-    shippingTotalRate: 0,
-    // tax rate applied to cart subtotal
-    taxRate: 0,
-    // true if tax should be applied to shipping
-    taxShipping: false,
-    // event callbacks 
-    beforeAdd            : null,
-    afterAdd            : null,
-    load                : null,
-    beforeSave        : null,
-    afterSave            : null,
-    update            : null,
-    ready            : null,
-    checkoutSuccess    : null,
-    checkoutFail        : null,
-    beforeCheckout        : null,
-        beforeRemove           : null
-  });
+    $( window ).load(function() {
+      $( "#thequantityfinal" ).text(simpleCart.quantity());
+      $( "#changenewpricefinal" ).text(simpleCart.quantity()*$("#dishpricepaymentfinal").text());
+      $( "#servicefeespricefinal" ).text(simpleCart.tax().toFixed(2));
+      $( "#pricetotalfinal" ).text(simpleCart.grandTotal());
+
+      modifyPagePayment();
+    });
+
+
   </script>
+<?php }else{ ?>
+<script>
+  simpleCart.empty();
+</script>
+<?php }?>
+
 
   </body>
 </html>

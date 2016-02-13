@@ -15,6 +15,7 @@
     <!-- BEGIN PAGE STYLE -->
     <link href="common-files/user/plugins/metrojs/metrojs.min.css" rel="stylesheet">
     <link href="common-files/user/plugins/maps-amcharts/ammap/ammap.min.css" rel="stylesheet">
+    <link href="common-files/plugins/magnific/magnific-popup.min.css" rel="stylesheet">
 
     <link href="common-files/user/plugins/dropzone/dropzone.min.css" rel="stylesheet">
     <link href="common-files/user/plugins/step-form-wizard/css/step-form-wizard.min.css" rel="stylesheet">
@@ -55,9 +56,10 @@
               </ul>
             </li>
             <li class="nav-parent">
-              <a href=""><i class="icon-bag"></i><span>Reservations </span><span class="fa arrow"></span></a>
+              <a href="#"><i class="icon-bag"></i><span>Reservations </span><span class="fa arrow"></span></a>
               <ul class="children collapse">
-                <li><a href="page.php">Look</a></li>
+                <li><a href="user/sale/">Sale</a></li>
+                <li><a href="user/purchases/">Purchases</a></li>
               </ul>
             </li>
             <li class="nav-parent <?php if((isset($profil))&&($profil == 1)){ ?>nav-active active<?php } ?>">
@@ -65,6 +67,7 @@
               <ul class="children collapse">
                 <li><a href="user/profil/">Profile information</a></li>
                 <li><a href="user/account/">Account</a></li>
+                <li><a href="user/recomandations/">Recomandation</a></li>
               </ul>
             </li>
           </ul>

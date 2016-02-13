@@ -1,6 +1,6 @@
 <?php
 
-define("BASE", "http://localhost/BeMyGuest/");
+define("BASE", "http://duvert.etudiant-eemi.com/perso/BeMyGuest/");
 define("SERVER", "DEV");
 define("DEFAULT_ACTION", "index");
 define("DEFAULT_MODULE", "pages");
@@ -22,12 +22,12 @@ define("DEFAULT_DIST_LONG", "0.03");
 
 if (SERVER == "DEV") {
     define("DEBUG", true);
-    $host 							='localhost';
-	$login 							='root';
-	$user 							='root';
-	$password						='root';
-	$db								='bemyguest';
-	$dbName 						='bemyguest';
+    $host 							='duvert.etudiant-eemi.com';
+	$login 							='duvert';
+	$user 							='duvert';
+	$password						='568215';
+	$db								='duvert';
+	$dbName 						='duvert';
 	$table_prefixe					='bmg_';
 } else if (SERVER == "TEST") {
     define("DEBUG", true);

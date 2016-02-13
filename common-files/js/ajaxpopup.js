@@ -3,7 +3,7 @@ $(document).ready(function() {
       items: {
       src: '<div class="white-popup">'+
             '<div class="headerpopup bg-yellow">'+
-              '<h3 class="popup-title">Sign up</h3>'+
+              '<h3 class="popup-title">Sign in</h3>'+
             '</div>'+
               '<div class="content-popup t-center p-40">'+
                 '<p class="nofacebookaccount errorinscription"> You haven\'t a facebook account, use the form !</p>'+
@@ -22,11 +22,26 @@ $(document).ready(function() {
     closeBtnInside: true
     });
 
+    $('.haveto').magnificPopup({
+      items: {
+      src: '<div class="white-popup">'+
+            '<div class="headerpopup bg-yellow">'+
+              '<h3 class="popup-title">You must login to use this service</h3>'+
+            '</div>'+
+            '<div class="content-popup t-center p-40">'+
+              '<button onclick="havetocreate()" type="button"  class="btnconnexion btn btn-purple btn-transparent">Create an account</button>'+
+              '<button onclick="havetolog()" type="button"  class="m-t-40 btnconnexion btn btn-orange btn-transparent" >Log in you</button>'+
+            '</div></div>',
+      type: 'inline'
+    },
+    closeBtnInside: true
+    });
+
     $('.inscription').magnificPopup({
       items: {
       src: '<div class="white-popup">'+
               '<div class="headerpopup bg-purple">'+
-                '<h3 class="popup-title">Sign in</h3>'+
+                '<h3 class="popup-title">Sign up</h3>'+
               '</div>'+
               '<div class="content-popup t-center p-40">'+
               '<p class="nofacebookaccount errorinscription"> You haven\'t a facebook account, use the form !</p>'+
@@ -56,11 +71,44 @@ $(document).ready(function() {
               '<h3 class="popup-title">You need some help?</h3>'+
             '</div>'+
               '<div class="content-popup row t-center p-40">'+
-                '<div class="col-md-12">'+
-                '<a href="" class="btn btn-orange  btn-transparent allwidth">Who are we?</button>'+
-                '<a href="" class="btn btn-orange  btn-transparent allwidth">How can we use our service?</button>'+
-                '<a href="" class="btn btn-orange  btn-transparent allwidth">Our legal informations</button>'+
-                '<a href="" class="btn btn-orange  btn-transparent allwidth">Contact us</button>'+
+                '<div id="partieonehelp" class="col-md-12">'+
+                  '<button onclick="partieWeArehelp()" class="btnhelp btn btn-orange  btn-transparent">Who are we?</button>'+
+                  '<button onclick="PopupHowuseHelp()" class="btnhelp btn btn-orange  btn-transparent">How can we use our service?</button>'+
+                  '<button onclick="PopupLegalHelp()" class="btnhelp btn btn-orange  btn-transparent">Our legal informations</button>'+
+                  '<button onclick="PopupContactUs()" class="btnhelp btn btn-orange  btn-transparent">Contact us</button>'+
+                '</div>'+
+
+                '<div id="partieWeArehelp" style="display:none" class="SomeHelp col-md-12">'+
+                  '<div class="t-left m-b-20">'+
+                    '<button onclick="returnHelp()" class=" btn btn-purple  btn-transparent">Return</button>'+
+                  '</div>'+
+                    '<h2 class="section-title">Who we are ?</h2>'+
+                    '<p class="justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam bibendum purus sit amet lectus finibus, a consequat lacus luctus. In hac habitasse platea dictumst. Nunc aliquam diam vitae turpis volutpat laoreet. Duis nec tempus turpis, placerat ultricies augue<br>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam bibendum purus sit amet lectus finibus, a consequat lacus luctus. In hac habitasse platea dictumst. Nunc aliquam diam vitae turpis volutpat laoreet. Duis nec tempus turpis, placerat ultricies augue<br>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam bibendum purus sit amet lectus finibus, a consequat lacus luctus. In hac habitasse platea dictumst. Nunc aliquam diam vitae turpis volutpat laoreet. Duis nec tempus turpis, placerat ultricies augue</p>'+
+                '</div>'+
+
+                '<div id="PopupHowuseHelp" style="display:none" class="SomeHelp col-md-12">'+
+                  '<div class="t-left m-b-20">'+
+                    '<button onclick="returnHelp()" class=" btn btn-purple  btn-transparent">Return</button>'+
+                  '</div>'+
+                    '<h2 class="section-title">How can we use our service?</h2>'+
+                    '<p class="justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam bibendum purus sit amet lectus finibus, a consequat lacus luctus. In hac habitasse platea dictumst. Nunc aliquam diam vitae turpis volutpat laoreet. Duis nec tempus turpis, placerat ultricies augue<br>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam bibendum purus sit amet lectus finibus, a consequat lacus luctus. In hac habitasse platea dictumst. Nunc aliquam diam vitae turpis volutpat laoreet. Duis nec tempus turpis, placerat ultricies augue<br>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam bibendum purus sit amet lectus finibus, a consequat lacus luctus. In hac habitasse platea dictumst. Nunc aliquam diam vitae turpis volutpat laoreet. Duis nec tempus turpis, placerat ultricies augue</p>'+
+                '</div>'+
+
+                '<div id="partielegalehelp" style="display:none" class="SomeHelp col-md-12">'+
+                  '<div class="t-left m-b-20">'+
+                    '<button onclick="returnHelp()" class=" btn btn-purple  btn-transparent">Return</button>'+
+                  '</div>'+
+                    '<h2 class="section-title">Our legal information</h2>'+
+                    '<p class="justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam bibendum purus sit amet lectus finibus, a consequat lacus luctus. In hac habitasse platea dictumst. Nunc aliquam diam vitae turpis volutpat laoreet. Duis nec tempus turpis, placerat ultricies augue<br>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam bibendum purus sit amet lectus finibus, a consequat lacus luctus. In hac habitasse platea dictumst. Nunc aliquam diam vitae turpis volutpat laoreet. Duis nec tempus turpis, placerat ultricies augue<br>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam bibendum purus sit amet lectus finibus, a consequat lacus luctus. In hac habitasse platea dictumst. Nunc aliquam diam vitae turpis volutpat laoreet. Duis nec tempus turpis, placerat ultricies augue</p>'+
+                '</div>'+
+
+                '<div id="partiecontactehelp" style="display:none" class="SomeHelp col-md-12">'+
+                  '<div class="t-left m-b-20">'+
+                    '<button onclick="returnHelp()" class=" btn btn-purple  btn-transparent">Return</button>'+
+                  '</div>'+
+                    '<h2 class="section-title">Contact Us</h2>'+
+                    'Phone : 01.23.45.67.34<br>'+
+                    'Email : service.bemyguest@gmail.com'+
                 '</div>'+
               '</div></div>',
       type: 'inline'
@@ -128,6 +176,16 @@ $(document).ready(function() {
 
       };
 
+      function havetolog(){
+        $( ".mfp-close" ).trigger( "click" );
+        $( ".connexion" ).trigger( "click" );
+      }
+      function havetocreate(){
+        $( ".mfp-close" ).trigger( "click" );
+        $( ".inscription" ).trigger( "click" );
+      }
+//$( "#paymentwithnocookie" ).hide();
+//$( "#paymentwithcookie" ).fadeIn( "slow" );
 /////////////////////////////////////////  FORMULAIRE DE CONNEXION////////////////////////////////////////////////
 
       //on POST les données du formulaire inscription
@@ -230,6 +288,7 @@ $(document).ready(function() {
         var expires = 365 * 1000 * 60 * 60 * 24;
         var expires_date = new Date( today.getTime() + (expires) );
     document.cookie = name+"=" +escape( value ) + ";path=/" + ( ( expires ) ? ";expires=" + expires_date.toGMTString() : "" );
+    modifyPagePayment();
   }
 
   function DeleteSpaceCake( name ) {
@@ -258,5 +317,79 @@ $(document).ready(function(){
     })
   }})
 });
+
+
+////// PAYMMENT ////////
+  
+  function modifyPagePayment(){
+    var cookie = getcookie("log");
+    if (cookie==null||!cookie) {
+      $('#paymentwithcookie').hide();
+      $('#paymentwithnocookie').fadeIn();
+    }else{
+      $('#paymentwithnocookie').hide();
+      $('#paymentwithcookie').fadeIn();
+    }
+  }
+
+  function payplapayment(){
+      simpleCart.empty();
+      var array = getcookie("itempanier");
+      var array = array.split("§§");
+      var cookie = getcookie("log");
+      var partid = cookie.split("|");
+      var iddeperson = partid[0].substr(5);
+      var Create = { name: array[0] , quantity: array[1] , price: array[2] , date: array[3], iddish: array[4] , idperson: iddeperson};
+      var myItem = simpleCart.add(Create);
+
+      simpleCart.checkout();
+  }
+
+  function addcart(iddish , nameprod ,priceprod ,date){
+    //on prend l id de la person
+    var cookie = getcookie("log");
+    if (cookie==null||!cookie) {
+      var iddeperson = 'xxo';
+    }else{
+      var partid = cookie.split("|");
+      var iddeperson = partid[0].substr(5);
+    }
+    var quantityprod = $('#selectquantitypayment').val();
+    //on cree un tableau avec les var du panier
+    var Create = { name: nameprod , quantity: quantityprod , price: priceprod , date: date, iddish: iddish , idperson: iddeperson};
+    var myItem = simpleCart.add(Create);
+    //on le met ds un cookie si le mec est pas connecter
+    var arr = nameprod+'§§'+quantityprod+'§§'+priceprod+'§§'+date+'§§'+iddish+'§§'+iddeperson;
+    SpaceCakeBaking(arr , "itempanier");
+    window.location.href = "payment/"+iddish+"/"+date;
+  }
+
+///// HELP
+    
+    function partieWeArehelp(){
+      $('#partieonehelp').hide();
+      $('#partieWeArehelp').fadeIn();
+    }
+
+    function PopupHowuseHelp(){
+      $('#partieonehelp').hide();
+      $('#PopupHowuseHelp').fadeIn();
+    }
+
+
+    function PopupLegalHelp(){
+      $('#partieonehelp').hide();
+      $('#partielegalehelp').fadeIn();
+    }
+
+    function PopupContactUs(){
+      $('#partieonehelp').hide();
+      $('#partiecontactehelp').fadeIn();
+    }
+
+    function returnHelp(){
+      $('.SomeHelp').hide();
+      $('#partieonehelp').fadeIn();
+    }
 
 

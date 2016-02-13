@@ -22,7 +22,12 @@
 /****************        ALL     **********************/
 /******************************************************/
 .container{ padding-top: 70px;padding-bottom: 70px;}
-
+.row-eq-height {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
 
 
 /******************************************************/
@@ -126,6 +131,13 @@
 	height: 50px;
 	margin-bottom: 0px;
 }
+.btnhelp{
+    width: 100%;
+    text-align: center;
+    height: 50px;
+    margin-top: 20px;
+    margin-bottom: 0px;
+}
 .form-popup{
 	border-color:rgba(85, 85, 85, 0.5);
 	color:#555;
@@ -191,7 +203,7 @@ background-size: cover;
 .smalliconprofil{
     right: 0;
     top: 0;
-    margin-top: -20px;
+    margin-top: -40px;
     margin-right: 30px;
     float: right;
     width: 70px;
@@ -205,8 +217,10 @@ background-size: cover;
 }
 @media  (max-width: 770px) {
 	#leftpart{position: relative !important;}
+	.home-title{display: none;}
+	.display770{display :none;}
 }
-.map{height: 400px}
+.map{height: 420px}
 #gifgeoloc{width:20px;position:absolute;top:13px;left:30px}
 .gm-style .gm-style-iw {text-align:center 
 }
@@ -277,4 +291,10 @@ background-size: cover;
 }
 .popover-title{
 	padding: 0px 10px 0px 10px;
+}
+.textereco{
+	width: 80%;
+    border: 1px solid rgba(85, 85, 85, 0.478431);
+    margin: 40px 0px 0px;
+    height: 144px;
 }

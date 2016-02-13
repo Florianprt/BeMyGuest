@@ -4,7 +4,7 @@
     <div class="formulairehome m-t-40">
       <form id="newsletter">
         <!-- nb -->
-        <div class="col-md-6 col-md-offset-2 p-r-0">
+        <div class="col-md-6 col-md-offset-2 p-0">
           <input type="email" id="emailnews" name="emailnewsletter" class="newsletter border-orange form-control form-white placeholder t-center" placeholder="Enter your email adress ...">
         </div>
         <!-- BUTTON -->

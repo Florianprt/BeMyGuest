@@ -25,6 +25,16 @@ class DishDao  extends AbstractDao {
 		$result = $sth->fetchAll();
 		return $result;
 	}
+	public function getByUserIdOn($id) {
+		$on=1;
+		$pdo = $this->getPdo();
+		$sth = $pdo->prepare("SELECT * FROM ".self::$TABLE_PREFIXE.$this->_table." WHERE bmg_user_idbmg_user = :bmg_user_idbmg_user and dishactive =:dishactive");
+		$sth->bindParam('bmg_user_idbmg_user',$id,PDO::PARAM_INT);
+		$sth->bindParam('dishactive',$on);
+		$sth->execute();
+		$result = $sth->fetchAll();
+		return $result;
+	}
 
 	public function InsertDish($id, $name, $adress, $zipcode ,$city,$ingredients,$description,$price,$quantity ,$dishnewquantity, $dishbegin, $dishfinish , $dishactive,$dishlat,$dishlong) {
 		$pdo = $this->getPdo();
@@ -61,6 +71,16 @@ class DishDao  extends AbstractDao {
 		$sth->bindParam('dishbegin',$dishbegin);
 		$sth->bindParam('dishfinish',$dishfinish);
 		$sth->bindParam('idbmg_dish',$id);
+		$sth->execute();
+		return true;
+	}
+
+	public function updatequantitydish($iddish , $newqtrest , $newdsihbuy) {
+		$pdo = $this->getPdo();
+		$sth = $pdo->prepare("UPDATE ".self::$TABLE_PREFIXE.$this->_table." SET dishquantity=:dishquantity, dishbuy=:dishbuy WHERE idbmg_dish=:idbmg_dish");
+		$sth->bindParam('dishquantity',$newqtrest);
+		$sth->bindParam('dishbuy',$newdsihbuy);
+		$sth->bindParam('idbmg_dish',$iddish);
 		$sth->execute();
 		return true;
 	}

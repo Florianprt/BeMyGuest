@@ -34,7 +34,7 @@ class PagesControllersec extends Core
         $title = 'Be my guest | Home';
 
         $data = array (
-                "pages_info"  => array("title" => $title,"num" => "1"),
+                "pages_info"  => array("title" => $title,"num" => "1","nom" => "home"),
         );
 
 
@@ -94,7 +94,6 @@ class PagesControllersec extends Core
             $datearray = explode("/", $datasearch['search']['date']);
             $date= $datearray[2].'-'.$datearray[0].'-'.$datearray[1];
         }
-        /*lat+0.02>lat>lat-0.02*/
         $latmin=$datasearch['search']['lat']-DEFAULT_DIST_LAT;
         $latmax=$datasearch['search']['lat']+DEFAULT_DIST_LAT;
         $lngmin=$datasearch['search']['long']-DEFAULT_DIST_LONG;
@@ -104,8 +103,6 @@ class PagesControllersec extends Core
                 "function"  => array("search" => $searchdish),
             );
         $data = array_merge($data, $datafunction);
-
-
 
 
         if (isset($_COOKIE['log'])) {
@@ -120,11 +117,12 @@ class PagesControllersec extends Core
         $user = new UserDao();
         $dish = new DishDao();
         $validate = new ValidateDao();
+        $recoDao = new RecommendDao();
 
-        $title = 'Be my guest | Profil '.'name';
+        $title = 'Be my guest | Profil '.$this->name;
 
         $data = array (
-                "pages_info"  => array("title" => $title),
+                "pages_info"  => array("title" => $title,"nom" => "profil"),
         );
 
         if (isset($_GET['id'])) {
@@ -147,22 +145,37 @@ class PagesControllersec extends Core
             );
             $data = array_merge($data, $dataperson);
 
+            //DISH USER
             $nbrdish = $dish->getByUserId($_GET['id']);
             $i=0;
             foreach ($nbrdish as $item) {
                 $i++;
             }
-
+            $nbrdishvalidate = $dish->getByUserIdOn($_GET['id']);
+            //FIN DISH USER
+            
+            //USER VALIDATE
             $getvalidation = $validate->getByUserId($_GET['id']);
             foreach ($getvalidation as $item) {
                 $facebookvalidate =$item['facebook'];
                 $emailvalidate =$item['email'];
                 $bankinfo =$item['bankinfo'];
             }
+            //FIN USER VALIDATE
+
+            //RECO
+            $getReco = $recoDao->getByIdFor($_GET['id']);
+            $nr=0;
+            foreach ($getReco as $item) {
+                $nr++;
+            }
+            //FIN RECO
 
             $databdd = array (
                 "dish"  => array("nombre" => $i),
+                "reco"  => array("nombre" => $nr),
                 "validation"  => array("facebook" => $facebookvalidate,"email" => $emailvalidate,"bank"=>$bankinfo),
+                "function" =>array("dish"=>$nbrdish,"dishOn"=>$nbrdishvalidate, "GetReco" => $getReco,)
             );
 
             $data = array_merge($data, $databdd);
@@ -192,6 +205,7 @@ class PagesControllersec extends Core
         if (isset($_GET['id'])) {
            $searchdish = $dish->getById($_GET['id']);
            foreach ($searchdish as $item) {
+                $dishIdUser = $item['bmg_user_idbmg_user'];
                 $dishname = $item['dishname'];
                 $dishadress = $item['dishadress'];
                 $dishzipcode = $item['dishzipcode'];
@@ -205,10 +219,49 @@ class PagesControllersec extends Core
                 $dishlat = $item['dishlat'];
                 $dishlong = $item['dishlong'];
            }
-           $fulladresse = $dishadress." ".$dishcity." , ".$dishzipcode;
+            $fulladresse = $dishadress." ".$dishcity." , ".$dishzipcode;
+            //img
+            $dir    = DEFAULT_LINK_FILE.$dishIdUser.'/dish/'.$_GET['id'];
+            $files = scandir($dir);
+            $arrayimg = array();
+            $i=0;
+            for($j=0; $j<count($files); $j++){
+                if ($files[$j] != "." && $files[$j]!= ".." && $files[$j]!= ".DS_Store") {
+                    $i++;
+                    array_push($arrayimg, $dir.'/'.$files[$j]);
+                }
+            }
+            if($i!=0){ 
+                $lesArrayImg = array(
+                "img"=> $arrayimg,
+            );
+            }else{
+                $lesArrayImg = array(
+                "img"=> array(DEFAULT_LINK_FILE."default/dish.jpg"),
+                );
+            }
+            //finimg
+            if(isset($_GET['date'])){
+                if($_GET['date']=='now'){
+                    $dateRecherche = date('Y-m-d');
+                }
+                else{
+                     $dateRechercheExp = explode("-", $_GET['date']);
+                     $dateRecherche = $dateRechercheExp[2].'-'.$dateRechercheExp[0].'-'.$dateRechercheExp[1];
+                }
+            }
+            else{
+                $dateRecherche = date('Y-m-d');
+            }
+            $datadaterecherche = array (
+                "date"  => array("date" => $dateRecherche),
+            );
+
             $dataproduit = array (
                 "dish"  => array("name" => $dishname,"adresse" => $fulladresse, "ingredient" =>$dishingredients, "desc" =>$dishdesc , "price"=>$dishprice, "quantity"=>$dishquantity, "begin"=>$dishbegin, "finish"=>$dishfinish, "lat"=>$dishlat, "long"=>$dishlong),
             );
+            $data = array_merge($data, $lesArrayImg);
+            $data = array_merge($data, $datadaterecherche);
             $data = array_merge($data, $dataproduit);
 
         }
@@ -237,14 +290,14 @@ class PagesControllersec extends Core
         $this->view('page/connect.php');
     }
 
-    public function propose()
+    /*public function propose()
     {
         $title = 'Be my guest | Propose a dish';
         $data = array (
                 "pages_info"  => array("title" => $title),
         );
         $this->view('page/propose.php');
-    }
+    }*/
 
     public function valid()
     {   
@@ -271,14 +324,90 @@ class PagesControllersec extends Core
         }
     }
 
+    public function recomandate()
+    {   
+        $user = new UserDao();
+        $recoDao = new RecommendDao();
+
+        $title = 'Be my guest | recomandate your friend';
+        $data = array (
+                "pages_info"  => array("title" => $title, "nom" => "reco"),
+        );
+
+        if (isset($_COOKIE['log'])) {
+            $data = array_merge($data, $this->global_information);
+        }
+        if (isset($_GET['id'])) {
+
+            $getuserreco = $user->getById($_GET['id']);
+            foreach ($getuserreco as $item) {
+                $nom = $item['nom'];
+                $prenom = $item['prenom'];
+                $image = $item['image'];
+            }
+            $datauserget = array (
+                "user_get"  => array("nom" => $nom, "prenom" => $prenom , "image" =>$image),
+            );
+            $data = array_merge($data, $datauserget);
+
+
+            if((isset($_POST['envoyer']))){
+                $idwrite = $this->id;
+                $idfor = $_GET['id'];
+                $reco = $_POST['thereco'];
+                $date = date("Y-m-d");
+
+                $insertreco = $recoDao->InsertReco($idwrite, $idfor , $reco ,$date);
+                if ($insertreco) {
+                    header('location: ../home');
+                }
+            }
+
+            $this->view('page/recomandate.php', $data);
+        }
+        else{
+            header('location: ../home');
+        }
+    }
+
     public function payment()
     {   
+        $dish = new DishDao();
+
         $title = 'Be my guest | Valid your payment';
         $data = array (
-                "pages_info"  => array("title" => $title),
+                "pages_info"  => array("title" => $title ,"nom" => "payment"),
         );
         if (isset($_COOKIE['log'])) {
             $data = array_merge($data, $this->global_information);
+        }
+
+
+        if (isset($_GET['id'])) {
+           $searchdish = $dish->getById($_GET['id']);
+           foreach ($searchdish as $item) {
+                $dishname = $item['dishname'];
+                $dishadress = $item['dishadress'];
+                $dishzipcode = $item['dishzipcode'];
+                $dishcity = $item['dishcity'];
+                $dishingredients = $item['dishingredients'];
+                $dishdesc = $item['dishdesc'];
+                $dishprice = $item['dishprice'];
+                $dishquantity = $item['dishquantity'];
+                $dishbegin = $item['dishbegin'];
+                $dishfinish = $item['dishfinish'];
+                $dishlat = $item['dishlat'];
+                $dishlong = $item['dishlong'];
+           }
+           $fulladresse = $dishadress." ".$dishcity." , ".$dishzipcode;
+            $dataproduit = array (
+                "dish"  => array("name" => $dishname,"adresse" => $fulladresse, "ingredient" =>$dishingredients, "desc" =>$dishdesc , "price"=>$dishprice, "quantity"=>$dishquantity, "begin"=>$dishbegin, "finish"=>$dishfinish, "lat"=>$dishlat, "long"=>$dishlong),
+            );
+            $data = array_merge($data, $dataproduit);
+
+        }
+        else{
+            header('location: home');
         }
 
 

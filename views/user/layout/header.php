@@ -12,7 +12,7 @@
           <div class="header-right">
             <ul class="header-menu nav navbar-nav">
               <li class=""><a class="btheader" href="user/createdish/"><div class="border-yellow  p-l-20 p-r-20">let's get cooking</div></a></li>
-              <li class=""><a href="#">Help</a></li>
+              <li class="help"><a href="#">Help</a></li>
               <li class=""><a href="home">Go back to site</a></li>
               <li class="dropdown" id="user-header">
                 <a href="#" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">

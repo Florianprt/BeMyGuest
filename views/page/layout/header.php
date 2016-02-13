@@ -19,6 +19,8 @@
     <link href="common-files/plugins/ion.rangeSlider-2.1.2/css/ion.rangeSlider.skinFlat.css" rel="stylesheet">
     <link rel="stylesheet" href="common-files/plugins/owl/owl.carousel.min.css">
     <link href="common-files/user/plugins/step-form-wizard/css/step-form-wizard.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="common-files/plugins/nivo-lightbox/nivo-lightbox.css">
+    <link rel="stylesheet" href="common-files/plugins/nivo-lightbox/lightbox-theme.css">
     <!-- END PAGE STYLE -->
   </head>
   <body>
@@ -43,7 +45,7 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div id="headernoconnect" class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
-        <li class=""><a class="btheader" href="propose"><div class="border-yellow  p-l-20 p-r-20 p-10">let's get cooking</div></a></li>
+        <li class="haveto"><a class="btheader" href="#"><div class="border-yellow  p-l-20 p-r-20 p-10">let's get cooking</div></a></li>
         <li class="help"><a href="#">Help</a></li>
         <li class="inscription"><a href="#">Sign up</a></li>
         <li class="connexion"><a href="#">Sign in</a></li>

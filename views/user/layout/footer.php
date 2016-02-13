@@ -47,6 +47,7 @@
 
     <script src="common-files/user/js/application.js"></script> <!-- Main Application Script -->
     <script src="common-files/user/js/plugins.js"></script> <!-- Main Plugin Initialization Script -->
+    <script src="common-files/plugins/magnific/jquery.magnific-popup.js"></script>
 
     <!-- BEGIN PAGE SCRIPT -->
     <script src="common-files/user/plugins/noty/jquery.noty.packaged.min.js"></script>  <!-- Notifications -->
@@ -65,6 +66,8 @@
     <script src="common-files/user/plugins/multidatepicker/multidatespicker.min.js"></script> <!-- Multi dates Picker -->
     <script src="common-files/user/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script> <!-- >Bootstrap Date Picker -->
     <!-- End Create Dish -->
+    <script src="common-files/user/plugins/datatables/jquery.dataTables.min.js"></script> <!-- Tables Filtering, Sorting & Editing -->
+    <script src="common-files/user/js/pages/table_dynamic.js"></script>
 
     <!-- END PAGE SCRIPT -->
     <script src="common-files/user/plugins/touchspin/jquery.bootstrap-touchspin.min.js"></script> <!-- A mobile and touch friendly input spinner component for Bootstrap -->

@@ -236,6 +236,7 @@
           <?php 
             foreach($data['function']['dish'] as $item) { 
               $id = $item['idbmg_dish'];
+              $idperson = $item['bmg_user_idbmg_user'];
               $dishname = $item['dishname'];
               $dishadress = $item['dishadress'];
               $dishzipcode = $item['dishzipcode'];
@@ -256,6 +257,7 @@
               $now = new DateTime();
 
 
+
               $datebeginin= $datebegin->diff($now)->format("%d days and %h hours");
               $datefinishin= $datefinish->diff($now)->format("%d days and %h hours");
           ?>
@@ -263,7 +265,21 @@
             <div class="col-md-4">
               <div class="panel">
                 <figure class="effect-sarah" style="overflow:hidden; height: 200px">
-                  <img src="common-files/user/images/gallery/4.jpg" alt="img04"/>
+                <?php
+                $i=0;
+                $dir    = DEFAULT_LINK_FILE.$idperson.'/dish/'.$id;
+                $files = scandir($dir);
+                for($j=0; $j<count($files); $j++){
+                if ($files[$j] != "." && $files[$j]!= ".." && $files[$j]!= ".DS_Store") {
+                    $i++;
+                    $name=$files[$j];
+                    $bon_name[$j]=$name[$j];
+                    $bon_name[$j]=str_replace(".jpg","",$bon_name[$j]); ?>
+                    <img src="<?php echo $dir.'/'.$name?>" style="width:100%" alt="img04"/>
+                <?php }}
+                if($i==0){ ?>
+                    <img src="<?php echo DEFAULT_LINK_FILE.'default/dish.jpg'?>" style="width:100%" alt="img04"/>
+                <?php }?>
                 </figure>
                 <div class="panel-content">
                   <div class="row">

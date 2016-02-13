@@ -65,6 +65,9 @@
               array_push($leslong , $dishlong);
               array_push($lesname, $dishname);
               array_push($lesid , $id);
+
+              $dir    = DEFAULT_LINK_FILE.$idperson.'/dish/'.$id;
+              $files = scandir($dir);
           ?> 
           <!-- Single PLAT -->
           <div class="col-sm-6 col-xs-12 m-t-20">
@@ -72,22 +75,30 @@
               <div style="height: 200px">
                 <div class="search_prix"><p> <?php echo $dishprice?> €</p></div>
                 <div class="owl-carousel" data-plugin-options='{"autoPlay": false}' style="height:100%">
+                <?php
+                $i=0;
+                for($j=0; $j<count($files); $j++){
+                if ($files[$j] != "." && $files[$j]!= ".." && $files[$j]!= ".DS_Store") {
+                    $i++;
+                    $name[$j]=str_replace("","",$files[$j]);
+                    $bon_name[$j]=$name[$j];
+                    $bon_name[$j]=str_replace(".jpg","",$bon_name[$j]); ?>
                   <div class="item">
-                    <img src="common-files/images/dish/1.jpg" alt="ecommerce" class="img-responsive">
+                    <img src="<?php echo $dir.'/'.$files[$j]?>" alt="ecommerce" class="img-responsive">
                   </div>
+                <?php }}
+                if($i==0){ ?>
                   <div class="item">
-                    <img src="common-files/images/dish/2.jpg" alt="blog" class="img-responsive">
+                    <img src="<?php echo DEFAULT_LINK_FILE.'default/dish.jpg'?>" alt="ecommerce" class="img-responsive">
                   </div>
-                  <div class="item">
-                    <img src="common-files/images/dish/3.jpg" alt="blog" class="img-responsive">
-                  </div>
+                <?php }?>
                 </div>
               </div>
               <div class="p-20" align="center" style="position: relative">
               <a href="profil/<?php echo $idperson?>"><div class="smalliconprofil" style="    background-image: url('<?php echo $image;?>');"></div></a>
               <h4 class="pricing-heading color-scheme t-left"> <?php echo $dishname?></h4>
               <div class="minidesc"><p class="justify"><?php echo $dishdesc?></p></div>
-              <a href="dish/<?php echo $id?>"  class="btn btn-purple btn-transparent">Booking</a>
+              <a href="dish/<?php echo $id?>/<?php echo str_replace("/", "-", $_POST['date']);?>"  class="btn btn-purple btn-transparent">Booking</a>
               </div>
             </div>
           </div>

@@ -1,30 +1,44 @@
-#RewriteEngine on
-#RewriteRule ^([a-zA-Z0-9\-\_\]*)$ index.php?page=$1
+##404
+ErrorDocument 404 http://duvert.etudiant-eemi.com/perso/BeMyGuest/
+ErrorDocument 403 http://duvert.etudiant-eemi.com/perso/BeMyGuest/
+
+
 ################
 ################ REWRITE URL
 ################
 Options +FollowSymlinks
 RewriteEngine on
 
+RewriteRule ^user/([A-Za-z0-9-]+)/$ ?module=user&page=$1 [NC,L]
+RewriteRule ^user/$ ?module=user&page=index [L]
+RewriteRule ^admin/file/$ ?module=admin&page=file [NC,L]
+RewriteRule ^home$ index.php [NC,L]
+
+RewriteRule ^dish/([A-Za-z0-9-]+)/?$     index.php?page=dish&id=$1    [NC,L]
+RewriteRule ^profil/([A-Za-z0-9-]+)/?$   index.php?page=profil&id=$1    [NC,L]
+RewriteRule ^search$ ?page=search
+
+
+RewriteRule ^([A-Za-z0-9-]+)/([A-Za-z0-9-]+)/([A-Za-z0-9-]+)?$     index.php?page=$1&id=$2&date=$3    [NC,L]
 RewriteRule ^([A-Za-z0-9-]+)/([A-Za-z0-9-]+)/?$     index.php?page=$1&id=$2    [NC,L]
 
 
-RewriteRule ^home$ index.php
-RewriteRule ^search$ ?page=search
-RewriteRule ^connect$ ?page=connect
 
+
+
+
+
+
+#RewriteRule ^([A-Za-z0-9-]+)?$     index.php?module=pages&page=$1   [NC,L]
+#RewriteRule ^user/$ ?module=user&page=index
+#RewriteRule ^valid/([A-Za-z0-9-]+)/?$    index.php?page=valid&id=$1    [NC,L]
+#RewriteRule ^profil$ ?page=profil
+#RewriteRule ^search$ ?page=search
+#RewriteRule ^connect$ ?page=connect
 #RewriteRule ^dish/([A-Za-z0-9-]+)/?$     index.php?page=dish&id=$1    [NC,L]
 #RewriteRule ^profil/([A-Za-z0-9-]+)/?$   index.php?page=profil&id=$1    [NC,L]
-RewriteRule ^valid/([A-Za-z0-9-]+)/?$    index.php?page=valid&id=$1    [NC,L]
-
-RewriteRule ^profil$ ?page=profil
-RewriteRule ^propose$ ?page=propose
-
-RewriteRule ^user/$ ?module=user&page=index
-RewriteRule ^user/createdish/$ ?module=user&page=create_dish
-RewriteRule ^user/dish/$ ?module=user&page=dish
-RewriteRule ^user/profil/$ ?module=user&page=profil
-RewriteRule ^user/account/$ ?module=user&page=account
-
-
-RewriteRule ^admin/file/$ ?module=admin&page=file
+#RewriteRule ^user/createdish/$ ?module=user&page=create_dish
+#RewriteRule ^user/dish/$ ?module=user&page=dish
+#RewriteRule ^user/profil/$ ?module=user&page=profil
+#RewriteRule ^user/account/$ ?module=user&page=account
+#RewriteRule ^admin/file/$ ?module=admin&page=file

@@ -3,6 +3,7 @@ class ValidateDao  extends AbstractDao {
 
 	protected $_table = 'validation';	
 	protected $ok = 1;	
+	protected $nok = 0;
 
 	function validateemail($id){
 		$pdo = $this->getPdo();
@@ -39,6 +40,17 @@ class ValidateDao  extends AbstractDao {
 		return $result;
 	}
 
+	public function firstvalidate($id){
+			$pdo = $this->getPdo();
+			$sth = $pdo->prepare("INSERT INTO ".self::$TABLE_PREFIXE.$this->_table." 
+			(bmg_user_idbmg_user ,	facebook , email , bankinfo) VALUES ( :bmg_user_idbmg_user , :facebook , :email , :bankinfo);");
+			$sth->bindParam('bmg_user_idbmg_user',$id);
+			$sth->bindParam('facebook',$this->nok);
+			$sth->bindParam('email',$this->nok);
+			$sth->bindParam('bankinfo',$this->nok);
+			$sth->execute();
+			return true;
+	}
 
 
 

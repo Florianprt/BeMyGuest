@@ -14,50 +14,26 @@
 
               <div class="panel">
                 <div class="panel-header">
-                </div>
-                <div class=" t-center">
-                  <button type="button" class="btn btn-warning btn-transparent">Banque informations</button>
-                  <button type="button" class="btn btn-warning btn-transparent">Facturation informations</button>
-                  <button type="button" class="btn btn-warning btn-transparent">Transaction history</button>
-                </div>
-              </div>
-
-              <div class="panel">
-                <div class="panel-header">
-                  <h3><i class="icon-note"></i>Your profil informations</h3>
+                  <h3><i class="icon-note"></i>Please enter your bank inforamtion to receive your payment on your bank account</h3>
                 </div>
                 <div class="panel-content">
+                <form id="profil_form" method="post" action="<?php echo BASE.'user/account/'; ?>" autocomplete="off" enctype="multipart/form-data">
                   <div class="row m-b-30">
                     <div class="col-md-6">
-                    <h2>img</h2>
-                    </div>
-                    <div class="col-md-6">
                       <h2>Last name</h2>
-                      <input class="form-control form-white" name="last_name" type="text" placeholder="Write our last name" value="<?php if(isset($data['user_info']['nom'])){echo $data['user_info']['nom'];} ?>">
+                      <input class="form-control form-white" required name="nombank" type="text" placeholder="Write our last name" value="<?php if(isset($data['bankinfo']['nombank'])){echo $data['bankinfo']['nombank'];} ?>">
+                    </div>
+                    <div class="col-md-6">
                       <h2>First name</h2>
-                      <input class="form-control form-white" name="first_titre" type="text" placeholder="Write our first name" value="<?php if(isset($data['user_info']['prenom'])){echo $data['user_info']['prenom'];} ?>">
+                      <input class="form-control form-white" required name="prenombank" type="text" placeholder="Write our first name" value="<?php if(isset($data['bankinfo']['prenombank'])){echo $data['bankinfo']['prenombank'];} ?>">
                     </div>
-                    <div class="col-md-3">
-                      <h2>Age</h2>
-                      <input type="text" value="<?php if(isset($data['user_info']['age'])){echo $data['user_info']['age'];} ?>" data-step="1" class="numeric-stepper form-control form-white" />
+                    <div class="col-md-8">
+                      <h2>IBAN</h2>
+                      <input class="form-control form-white" name="iban" required placeholder="Write our IBAN code" maxlength="27" value="<?php if(isset($data['bankinfo']['iban'])){echo $data['bankinfo']['iban'];} ?>">
                     </div>
-                    <div class="col-md-9">
-                      <h2>Address email</h2>
-                      <input class="form-control form-white" name="email" type="email" required placeholder="Write our email address" value="<?php if(isset($data['user_info']['email'])){echo $data['user_info']['email'];} ?>">
-                    </div>
-                    <div class="col-md-6">
-                      <h2>Zip Code</h2>
-                      <input name="arrondissement" type="text" data-mask="99999" class="form-control form-white" placeholder="Write our zip code" value="<?php if(isset($data['user_info']['arrondissement'])){echo $data['user_info']['arrondissement'];} ?>">
-                    </div>
-                    <div class="col-md-6">
-                      <h2>City</h2>
-                      <input class="form-control form-white" name="ville" type="text" placeholder="Write ou city" value="<?php if(isset($data['user_info']['ville'])){echo $data['user_info']['ville'];} ?>">
-                    </div>
-                    <div class="col-md-12">
-                      <h2>Address</h2>
-                      <input class="form-control form-white" name="adresse" type="text" placeholder="Write our address" value="<?php if(isset($data['user_info']['adresse'])){echo $data['user_info']['adresse'];} ?>">
-                      <h2>Description</h2>
-                      <textarea class="form-control form-white" name="description" type="text" placeholder="Your description" value="<?php if(isset($data['user_info']['description'])){echo $data['user_info']['description'];} ?>"></textarea> 
+                    <div class="col-md-4">
+                      <h2>BIC</h2>
+                      <input name="bic" type="text" class="form-control form-white" requiredrequired  placeholder="Write our BIC code" maxlength="11" value="<?php if(isset($data['bankinfo']['bic'])){echo $data['bankinfo']['bic'];} ?>">
                     </div>
                   </div><!-- fin row-->
                   <div class="row m-t-30">
@@ -67,6 +43,7 @@
                       </div>
                     </div><!-- fin col sm 9-->
                   </div><!-- fin row -->
+                </form>
                 </div><!-- fin panel content-->
               </div>
 
