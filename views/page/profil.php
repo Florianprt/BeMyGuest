@@ -14,7 +14,7 @@
                   <h2 class="title-name"><?php echo $data['person']['nom'].' '.$data['person']['prenom']?></h2>
                   <p><?php if ($data['person']['age']!=""){echo 'Is '.$data['person']['age'].' years old & ';} if ($data['person']['ville']!="") { echo 'Live in '.$data['person']['ville'];} if ($data['person']['zipcode']!="") { echo ' • '.$data['person']['zipcode'].' & ';}?>Member since <?php echo $data['person']['membresince']?></p>
                 </div>
-                <a href="#"  class="m-t-20 scrollToTop btn btn-purple btn-transparent">Contact him</a>
+                <!--<a href="#"  class="m-t-20 scrollToTop btn btn-purple btn-transparent">Contact him</a>-->
                 </div>
               </div>
             </div>
@@ -24,9 +24,9 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-md-4 col-sm-4 p-40">
+              <div class="col-md-4 col-sm-4 p-40 goToComSection">
                 <div class="border-yellow t-center badgeprofil">
-                  <h5 class="p-20">?</h5>
+                  <h5 class="p-20"><?php echo $data['com']['nombre'];?></h5>
                   <p>commentaires</p>
                 </div>
               </div>
@@ -46,7 +46,7 @@
           </div>
           <div class="col-md-4 col-sm-12">
             <div class="row">
-              <div class="col-md-10 col-md-offset-2  p-b-20">
+            <!--  <div class="col-md-10 col-md-offset-2  p-b-20">
                 <div class="border-yellow boxshadow t-center p-b-40">
                   <h5 class="title-note-section border-bottom p-10">Cuisinier</h5>
                   <div class="rateit p-20" data-rateit-value="2.5" data-rateit-resetable="false" data-rateit-readonly="true"></div>
@@ -58,6 +58,7 @@
                   <div class="rateit p-20" data-rateit-value="3.5" data-rateit-resetable="false" data-rateit-readonly="true"></div>
                 </div>
               </div>
+            -->
               <div class="col-md-10 col-md-offset-2">
                 <div class="border-purple boxshadow t-center p-b-40">
                   <h5 class="title-note-section border-bottom p-10">Vérifications</h5>
@@ -70,6 +71,40 @@
           </div>
         </div>
       </div>
+  </section>
+
+  <section id="SectionComProfil" <?php if($data['com']['nombre']==0){ echo 'style="display:none"';} ?>>
+    <div class="container m-t-40">
+      <div class="row">
+        <div class="col-md-10 col-md-offset-1 col-sm-12">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="border boxshadow bd-6" style="overflow: hidden">
+                <h5 class="bloc-title border-bottom p-30">Recommendation</h5>
+                <?php
+                foreach ($data['function']['GetCom'] as $item) { 
+                  $img = $item['image'];
+                  $idwriter = $item['bmg_user_idbmg_user'];
+                  $reco = $item['com_desc'];
+                  $date = $item['com_date'];
+                ?>
+                  <div class="row border-bottom p-20">
+                    <div class="col-md-2 t-right">
+                      <a href="profil/<?php echo $idwriter ?>">
+                        <img src="<?php echo $img ?>" class="bd-50p" width="40%" alt="team 1">
+                      </a>
+                    </div>
+                    <div class="col-md-9 p-r-20 justify">
+                      <p><?php echo $reco ?><br><span class="c-orange">Write the <?php echo $date ?></span></p>
+                    </div>
+                  </div>
+                <?php } ?>
+              </div>
+            </div>     
+          </div>
+        </div>
+      </div>
+    </div>
   </section>
 
   <section id="SectionRecoProfil" <?php if($data['reco']['nombre']==0){ echo 'style="display:none"';} ?>>

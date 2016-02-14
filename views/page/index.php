@@ -34,7 +34,11 @@
 
               <!-- nb -->
                 <div class="col-md-2 col-sm-2">
-                  <input type="text" name="cb" class="form-control form-white placeholder t-center" placeholder="How many ?">
+                  <select  class="form-control form-white" data-placeholder="How many ?" name="cb">
+                  <?php for ($i=1; $i <=11 ; $i++) { ?>
+                    <option value="<?php echo $i;?>"><?php if($i!=11){echo $i;} else{echo 'more';}?></option>
+                  <?php }?>
+                  </select>
                 </div>
               <!-- BUTTON -->
                 <div class="col-md-2 col-sm-2 searchbuton">
@@ -57,7 +61,7 @@
               <i class="icons-food-11" style="font-size :70px; color :#763568 ;"></i>
             </div>
             <h5 class="title-note-section border-bottom p-10 t-black">Home made</h5>
-            <p>Today, home made is very present in our life.<br>The website promote the Homemade cooking. For the cooker and people who want to eat healthy food.</p>
+            <p>Today, home-made is everywhere.<br>The website promotes Homemade cooking. For the "cooker" and people who want to eat healthy food.</p>
 
           </div>
 
@@ -73,8 +77,8 @@
             <div class="icon_rond">
               <i class="icons-ecology-02" style="font-size :70px; color :#763568 ;"></i>
             </div>
-            <h5 class="title-note-section border-bottom p-10 t-black">Avoid the mess</h5>
-            <p>When you cook to much. You can sell the meals left on our website. So it s a good way to avoid the mess and get some money.</p>
+            <h5 class="title-note-section border-bottom p-10 t-black">Avoid waste</h5>
+            <p>When you have cooked too much, you can sell the leftovers on our website. It’ s a good way to avoid wasting food and make a little money.</p>
           </div>
 
         </div>
@@ -110,7 +114,7 @@
                   <li>Offer people an easy access to delicious dishes</li>
                   <li>Make someone happy with your left-overs, be eco-frendly</li>
                   <li>Make money with your passion, a dream coming true</li>
-                  <li>Reconnect people to their food</li>
+                  <li>Reconnect people to their home-food</li>
                 </ul>
               </div>
               <a <?php if(isset($_COOKIE['log'])){ echo 'href="user/createdish/"';} else{ echo 'href="#" ';} ?> class="<?php if(isset($_COOKIE['log'])){ echo 'haveto';} else{ echo 'haveto';} ?> m-t-20 btn btn-orange btn-transparent">Propose a dish</a>

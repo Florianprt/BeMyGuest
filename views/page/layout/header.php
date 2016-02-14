@@ -5,7 +5,7 @@
     <base href="<?php echo BASE ?>">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="common-files/images/favicon.png" type="image/png">
+    <link rel="shortcut icon" href="common-files/images/fav.png" type="image/png">
     <link rel="stylesheet" href="common-files/css/styles.css"/>
     <link rel="stylesheet" href="common-files/css/custom.css"/>
     <link href="common-files/plugins/magnific/magnific-popup.min.css" rel="stylesheet">
@@ -77,7 +77,7 @@
               <a href="user/profil/"><i class="icon-settings"></i><span>Account Settings</span></a>
             </li>
             <li>
-              <a href="#"><i class="icon-bubbles" ></i><span>My Message</span></a>
+              <a href="user/message/"><i class="icon-bubbles" ></i><span>My Message</span></a>
             </li>
             <li>
               <a href="javascript:finishconnexion('page');"><i class="icon-logout" ></i><span>Logout</span></a>
@@ -115,7 +115,7 @@
               <a href="user/profil/"><i class="icon-settings"></i><span>Account Settings</span></a>
             </li>
             <li>
-              <a href="#"><i class="icon-bubbles" ></i><span>My Message</span></a>
+              <a href="user/message/"><i class="icon-bubbles" ></i><span>My Message</span></a>
             </li>
             <li>
               <a href="javascript:finishconnexion('page');"><i class="icon-logout" ></i><span>Logout</span></a>

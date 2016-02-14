@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <meta name="description" content="admin-themes-lab">
     <meta name="author" content="themes-lab">
-    <link rel="shortcut icon" href="common-files/user/images/favicon.png" type="image/png">
+    <link rel="shortcut icon" href="common-files/images/fav.png" type="image/png">
     <title><?php echo $data['pages_info']['title'] ?></title>
     <link href="common-files/user/css/style.css" rel="stylesheet">
     <link href="common-files/user/css/theme.css" rel="stylesheet">
@@ -52,7 +52,7 @@
             <li class="nav-parent">
               <a href=""><i class="icon-bubble"></i><span>Messages </span><span class="fa arrow"></span></a>
               <ul class="children collapse">
-                <li><a href="page.php">See</a></li>
+                <li><a href="user/message/">See</a></li>
               </ul>
             </li>
             <li class="nav-parent">

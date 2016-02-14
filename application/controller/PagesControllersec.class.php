@@ -92,8 +92,9 @@ class PagesControllersec extends Core
         }
         else{
             $datearray = explode("/", $datasearch['search']['date']);
-            $date= $datearray[2].'-'.$datearray[0].'-'.$datearray[1];
+            $date = $datearray[2].'-'.$datearray[0].'-'.$datearray[1];
         }
+
         $latmin=$datasearch['search']['lat']-DEFAULT_DIST_LAT;
         $latmax=$datasearch['search']['lat']+DEFAULT_DIST_LAT;
         $lngmin=$datasearch['search']['long']-DEFAULT_DIST_LONG;
@@ -118,6 +119,7 @@ class PagesControllersec extends Core
         $dish = new DishDao();
         $validate = new ValidateDao();
         $recoDao = new RecommendDao();
+        $commentDao = new CommentDao();
 
         $title = 'Be my guest | Profil '.$this->name;
 
@@ -127,6 +129,7 @@ class PagesControllersec extends Core
 
         if (isset($_GET['id'])) {
            $searchperson = $user->getById($_GET['id']);
+           $c=0;
            foreach ($searchperson as $item) {
                 $nom = $item['nom'];
                 $prenom = $item['prenom'];
@@ -136,6 +139,10 @@ class PagesControllersec extends Core
                 $age = $item['age'];
                 $image = $item['image'];
                 $description = $item['description'];
+                $c++;
+            }
+            if ($c==0) {
+                header('location: ../home');
             }
             $dateinsc = new DateTime($date_inscription);
             $now = new DateTime();
@@ -171,11 +178,20 @@ class PagesControllersec extends Core
             }
             //FIN RECO
 
+            //COM
+            $getCom = $commentDao->getByIdFor($_GET['id']);
+            $nrcom=0;
+            foreach ($getCom as $item) {
+                $nrcom++;
+            }
+            //FIN COM
+
             $databdd = array (
                 "dish"  => array("nombre" => $i),
                 "reco"  => array("nombre" => $nr),
+                "com"  => array("nombre" => $nrcom),
                 "validation"  => array("facebook" => $facebookvalidate,"email" => $emailvalidate,"bank"=>$bankinfo),
-                "function" =>array("dish"=>$nbrdish,"dishOn"=>$nbrdishvalidate, "GetReco" => $getReco,)
+                "function" =>array("dish"=>$nbrdish,"dishOn"=>$nbrdishvalidate, "GetReco" => $getReco, "GetCom" => $getCom)
             );
 
             $data = array_merge($data, $databdd);
@@ -290,14 +306,6 @@ class PagesControllersec extends Core
         $this->view('page/connect.php');
     }
 
-    /*public function propose()
-    {
-        $title = 'Be my guest | Propose a dish';
-        $data = array (
-                "pages_info"  => array("title" => $title),
-        );
-        $this->view('page/propose.php');
-    }*/
 
     public function valid()
     {   
@@ -412,6 +420,180 @@ class PagesControllersec extends Core
 
 
         $this->view('page/payment.php', $data);
+
+    }
+
+
+    public function success()
+    {   
+
+        $title = 'Be my guest | Success your payment';
+        $data = array (
+                "pages_info"  => array("title" => $title ,"nom" => "payment"),
+        );
+        if (isset($_COOKIE['log'])) {
+            $data = array_merge($data, $this->global_information);
+        }
+
+
+        $this->view('page/success.php', $data);
+
+    }
+
+    public function cgu()
+    {   
+
+        $title = 'Be my guest | our C.G.U';
+        $data = array (
+                "pages_info"  => array("title" => $title ,"nom" => "cgu"),
+        );
+        if (isset($_COOKIE['log'])) {
+            $data = array_merge($data, $this->global_information);
+        }
+
+
+        $this->view('page/cgu.php', $data);
+
+    }
+
+
+    public function comment()
+    {   
+        $user = new UserDao();
+        $commentDao = new CommentDao();
+        $reservationDao = new ReservationDao();
+
+        $title = 'Be my guest | comment';
+        $data = array (
+                "pages_info"  => array("title" => $title, "nom" => "comment"),
+        );
+
+        if (isset($_COOKIE['log'])) {
+            $data = array_merge($data, $this->global_information);
+        }
+        if (isset($_GET['id'])) {
+
+            $checkifissetresa = $reservationDao->chickif($this->id ,$_GET['id']);
+            $i=0;
+            foreach ($checkifissetresa as $item) {
+                $i ++;
+            }
+            if ($i==0) {
+                header('location: ../home');
+            }
+
+            $getuserreco = $user->getById($_GET['id']);
+            foreach ($getuserreco as $item) {
+                $nom = $item['nom'];
+                $prenom = $item['prenom'];
+                $image = $item['image'];
+            }
+
+            $datauserget = array (
+                "user_get"  => array("nom" => $nom, "prenom" => $prenom , "image" =>$image),
+            );
+            $data = array_merge($data, $datauserget);
+
+
+            if((isset($_POST['envoyer']))){
+                $idwrite = $this->id;
+                $idfor = $_GET['id'];
+                $reco = $_POST['thereco'];
+                $date = date("Y-m-d");
+
+                $insertreco = $commentDao->Insertcom($idwrite, $idfor , $reco ,$date);
+                if ($insertreco) {
+                    header('location: ../home');
+                }
+            }
+
+            $this->view('page/comment.php', $data);
+        }
+        else{
+            header('location: ../home');
+        }
+    }
+
+
+
+
+    public function message()
+    {   
+        $reservationDao = new ReservationDao();
+        $messageDao = new MessageDao();
+
+        $title = 'Be my guest | Contact someone';
+        $data = array (
+                "pages_info"  => array("title" => $title ,"nom" => "message"),
+        );
+        if (isset($_COOKIE['log'])) {
+            $data = array_merge($data, $this->global_information);
+        }
+
+        if (isset($_GET['id'])) {
+            $getresa = $reservationDao->selectresabyid($_GET['id']);
+            $nbrresa = 0;
+            foreach ($getresa as $items) {
+                $nbrresa ++;
+                $iddish = $items['id_dish'];
+                $idperson = $items['id_user'];
+                $idsale = $items['id_saler'];
+                $quantity = $items['quantity'];
+                $datefor = $items['date_for'];
+
+                $dishname = $items['dishname'];
+
+                $dir    = DEFAULT_LINK_FILE.$idsale.'/dish/'.$iddish;
+                $files = scandir($dir);
+                $i=0;
+                for($j=0; $j<count($files); $j++){
+                if ($files[$j] != "." && $files[$j]!= ".." && $files[$j]!= ".DS_Store") {
+                    $i++;
+                    $name=$files[$j];
+                }}
+                if ($i==0) {
+                    $dishimg = DEFAULT_LINK_FILE.'default/dish.jpg';
+                }
+                else{
+                    $dishimg = $dir.'/'.$name;
+                }
+            }
+            if ($nbrresa==0) {
+                header('location: ../home');
+            }
+
+            if((isset($_POST['envoyer']))){
+                $idwrite = $this->id;
+                $idresa = $_GET['id'];
+                $message = $_POST['thereco'];
+                $date = date("Y-m-d");
+
+                $insertmsg = $messageDao->Insertmessage($idresa, $message , $idwrite ,$date);
+                if ($insertmsg) {
+                    header('location: ../home');
+                }
+            }
+
+            if (($this->id == $idperson )||($this->id == $idsale)) {
+                
+                $datainfo = array (
+                    "dish"  => array("name" => $dishname ,"for" =>$datefor ,"img" =>$dishimg),
+                );
+                $data = array_merge($data, $datainfo);
+            }
+
+            else{
+                header('location: ../home');
+            }
+
+        }
+        else{
+            header('location: home');
+        }
+
+
+
+        $this->view('page/message.php', $data);
 
     }
 

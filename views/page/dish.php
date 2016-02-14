@@ -14,11 +14,12 @@
                 </div>
           </div>
           <div class="col-md-6 col-sm-6 bg-white col-xs-12 boxshadow p-t-60 p-b-60">
-            <h2 class="section-title"><?php echo  $data['dish']['name']?></h2><div class="rateit p-20" data-rateit-value="2.5" data-rateit-resetable="false" data-rateit-readonly="true"></div>
+            <h2 class="section-title"><?php echo  $data['dish']['name']?></h2>
+            <!--<div class="rateit p-20" data-rateit-value="2.5" data-rateit-resetable="false" data-rateit-readonly="true"></div>-->
           </div>
         </div>
         <div class="row m-t-40">
-          <div class="col-md-8 col-sm-8 p-0 col-sm-12 justify">
+          <div class="col-md-8 col-sm-8 p-0 col-sm-12 justify pappear">
               <p class="section-title m-t-40">location : <?php echo  $data['dish']['adresse']?></p>
               <p><?php echo  $data['dish']['desc']?></p>
               <?php 
@@ -53,36 +54,6 @@
                   <div class="col-md-6 col-sm-6 col-xs-6 border-bottom p-20 m-t-0" style="background-color:#87D37C; height: 70px;">
                     <p class="t-right">for a dish</h5>
                   </div>
-                  <!--<div class="p-20 col-md-12 simpleCart_shelfItem">
-                    <table class="table table-bordered">
-                      <tbody>
-                      <tr>
-                        <h2 class="item_name" style="display:none"><?php echo  $data['dish']['name']?></h2>
-                        <span class="item_price" style="display:none"><?php echo  $data['dish']['price']?></span>
-                        <span class="item_date" style="display :none"><?php echo $data['date']['date']?></span>
-                        <span class="item_idplat" style="display :none"><?php echo $_GET['id']?></span>
-                        <span class="item_idpersonne" style="display :none"><?php if(isset($data['personnal_information']['id'])){echo $data['personnal_information']['id'];} else{ echo 'xxx';}?></span>
-                        <td><span id="dishpricepayment"><?php echo  $data['dish']['price']?></span> € x 
-                          <select id="selectquantitypayment" class="item_Quantity">
-                          <?php for ($i=1; $i <= $data['dish']['quantity'] ; $i++) { ?>
-                            <option value="<?php echo $i?>"><?php echo $i?></option>
-                          <?php } ?>
-                          </select> dish</td>
-                        <td class="text-right"><span id="changenewprice"><?php echo  $data['dish']['price']?></span> €</td>
-                      </tr>
-                      <tr>
-                        <td>Service fees <i class="icon-info m-l-30" rel="popover" data-container="body" data-toggle="popover" data-placement="right" data-content="15% of the dish price" data-original-title="Service fees"></i>
-                        </td>
-                        <td class="text-right" id="servicefeesprice"><span id="priceservicefee"><?php echo  $data['dish']['price']*15/100;?></span> €</td>
-                      </tr>
-                      <tr>
-                        <td>Total</td>
-                        <td class="text-right"><span id="pricetotal" ><?php echo  $data['dish']['price']+($data['dish']['price']*15/100);?></span> €</td>
-                      </tr>
-                      </tbody>
-                    </table>
-                    <a href="payment/<?php echo $_GET['id'];?>/<?php echo $_GET['date'];?>"  class="item_add btn btn-purple btn-transparent">Proceed to payment</a>
-                  </div>-->
 
                   <div class="p-20 col-md-12">
                     <table class="table table-bordered">
@@ -125,21 +96,21 @@
   <section>
     <div class="container p-0 m-b-100">
       <div class="row row-eq-height">
-        <div class="col-md-6 m-r-20 m-l-20 col-sm-6 p-20 col-sm-12 justify border-yellow boxshadow t-center">
-          <h5 class="title-note-section border-bottom p-10">Ingrédiens</h5>
+        <div class="col-md-6 m-r-20 m-l-20 col-sm-12 p-20 col-sm-12 justify border-yellow boxshadow t-center">
+          <h5 class="title-note-section border-bottom p-10">Ingredients</h5>
           <div class="m-t-20 m-b-40" style="overflow: hidden">
             <ul class="list-two" >
               <?php 
               $theingrdient = explode(",",$data['dish']['ingredient']);
               for ($i=0; $i < count($theingrdient); $i++) { ?>
-              <li><?php echo $theingrdient[$i]?></li>
+              <li class="ingredientli"><?php echo $theingrdient[$i]?></li>
               <?php } ?>
             </ul>
           </div>
         </div>
-        <div class="col-md-6 m-r-20 m-l-20 col-sm-6 p-0 border-yellow boxshadow t-center">
+        <div class="col-md-6 m-r-20 m-l-20 col-sm-12 p-0 border-yellow boxshadow t-center MapDish">
           <h5 class="title-note-section border-bottom p-10 m-b-0">Localisation</h5>
-          <div class="map" id="my-map"></div>
+          <div class="map TheMapDish" id="my-map"></div>
         </div>
       </div>
     </div>

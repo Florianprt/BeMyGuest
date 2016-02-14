@@ -12,7 +12,6 @@
           <div class="header-right">
             <ul class="header-menu nav navbar-nav">
               <li class=""><a class="btheader" href="user/createdish/"><div class="border-yellow  p-l-20 p-r-20">let's get cooking</div></a></li>
-              <li class="help"><a href="#">Help</a></li>
               <li class=""><a href="home">Go back to site</a></li>
               <li class="dropdown" id="user-header">
                 <a href="#" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
@@ -30,7 +29,7 @@
                     <a href="user/profil/"><i class="icon-settings"></i><span>Account Settings</span></a>
                   </li>
                   <li>
-                    <a href="#"><i class="icon-bubbles"></i><span>My Message</span></a>
+                    <a href="user/message/"><i class="icon-bubbles"></i><span>My Message</span></a>
                   </li>
                   <li>
                     <a href="javascript:finishconnexion('user');"><i class="icon-logout"></i><span>Logout</span></a>

@@ -53,7 +53,7 @@ else if((isset($_POST['id']))&&(isset($_POST['last_name']))&&(isset($_POST['firs
     	$idinsert= $e->getMessage();
 	}
 		
-	if ((isset($idinsert))&&($idinsert!="existe")&&($idinsert!="")) {
+	if ((isset($idinsert))&&($idinsert!="existe")&&($idinsert!="")&&($fctinscription)) {
 		$mail = new MailDao();
     	$validate = new ValidateDao();
     	

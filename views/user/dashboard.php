@@ -9,7 +9,7 @@
               <div class="panel">
                 <div class="panel-header panel-controls">
                   <h3>Hi <?php echo $data['personnal_information']['first_name']?> , How are you today ? </h3>
-                  <p>We hope every think is ok, are you angry? or maybe you want to cook for somebody today?</p>
+                  <p>We hope every think is ok, are you hungry ? or maybe you want to cook for somebody today?</p>
                 </div>
               </div>
             </div>

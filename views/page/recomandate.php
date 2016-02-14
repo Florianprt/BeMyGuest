@@ -4,7 +4,7 @@
       <div class="row t-center">
         <h2 class="section-title t-center">Please connect you or create an account to use this services !</h2>
         <div class="m-t-60 m-b-100">
-          <a href="user/profil/" class="btn btn-purple  btn-transparent" >Let's do it</a>
+          <button class="btn haveto btn-purple  btn-transparent" >Let's do it</button>
         </div>
       </div>
     </div>

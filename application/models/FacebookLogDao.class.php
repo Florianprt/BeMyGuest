@@ -55,6 +55,7 @@ class FacebookLogDao  extends AbstractDao {
 			$randomString = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, $length);
 			$result = $randomString.$userid.'|'.$randomString.'|'.crypt($connectid).'|'.$email;
 			throw new Exception($result);
+			return false;
 			exit();
 		}
 	}
@@ -85,6 +86,7 @@ class FacebookLogDao  extends AbstractDao {
 				$randomString = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, $length);
 				$result = $randomString.$userid.'|'.$randomString.'|'.crypt($connectid);
 				throw new Exception($result);
+				return false;
 				exit();
 			}
 			else{
@@ -144,6 +146,7 @@ class FacebookLogDao  extends AbstractDao {
 		$sth->bindParam('email',$this->ok);
 		$sth->execute();
 		throw new Exception($this->result);
+		return true;
 	}
 	
 

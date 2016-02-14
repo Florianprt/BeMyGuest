@@ -13,8 +13,11 @@ RewriteRule ^user/([A-Za-z0-9-]+)/$ ?module=user&page=$1 [NC,L]
 RewriteRule ^user/$ ?module=user&page=index [L]
 RewriteRule ^admin/file/$ ?module=admin&page=file [NC,L]
 RewriteRule ^home$ index.php [NC,L]
+RewriteRule ^cgu$ index.php?page=cgu [NC,L]
+RewriteRule ^success$ index.php?page=success [NC,L]
 
 RewriteRule ^dish/([A-Za-z0-9-]+)/?$     index.php?page=dish&id=$1    [NC,L]
+RewriteRule ^message/([A-Za-z0-9-]+)/?$     index.php?page=message&id=$1    [NC,L]
 RewriteRule ^profil/([A-Za-z0-9-]+)/?$   index.php?page=profil&id=$1    [NC,L]
 RewriteRule ^search$ ?page=search
 
@@ -22,23 +25,3 @@ RewriteRule ^search$ ?page=search
 RewriteRule ^([A-Za-z0-9-]+)/([A-Za-z0-9-]+)/([A-Za-z0-9-]+)?$     index.php?page=$1&id=$2&date=$3    [NC,L]
 RewriteRule ^([A-Za-z0-9-]+)/([A-Za-z0-9-]+)/?$     index.php?page=$1&id=$2    [NC,L]
 
-
-
-
-
-
-
-
-#RewriteRule ^([A-Za-z0-9-]+)?$     index.php?module=pages&page=$1   [NC,L]
-#RewriteRule ^user/$ ?module=user&page=index
-#RewriteRule ^valid/([A-Za-z0-9-]+)/?$    index.php?page=valid&id=$1    [NC,L]
-#RewriteRule ^profil$ ?page=profil
-#RewriteRule ^search$ ?page=search
-#RewriteRule ^connect$ ?page=connect
-#RewriteRule ^dish/([A-Za-z0-9-]+)/?$     index.php?page=dish&id=$1    [NC,L]
-#RewriteRule ^profil/([A-Za-z0-9-]+)/?$   index.php?page=profil&id=$1    [NC,L]
-#RewriteRule ^user/createdish/$ ?module=user&page=create_dish
-#RewriteRule ^user/dish/$ ?module=user&page=dish
-#RewriteRule ^user/profil/$ ?module=user&page=profil
-#RewriteRule ^user/account/$ ?module=user&page=account
-#RewriteRule ^admin/file/$ ?module=admin&page=file

@@ -91,7 +91,9 @@ $(document).ready(function() {
                     '<button onclick="returnHelp()" class=" btn btn-purple  btn-transparent">Return</button>'+
                   '</div>'+
                     '<h2 class="section-title">How can we use our service?</h2>'+
-                    '<p class="justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam bibendum purus sit amet lectus finibus, a consequat lacus luctus. In hac habitasse platea dictumst. Nunc aliquam diam vitae turpis volutpat laoreet. Duis nec tempus turpis, placerat ultricies augue<br>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam bibendum purus sit amet lectus finibus, a consequat lacus luctus. In hac habitasse platea dictumst. Nunc aliquam diam vitae turpis volutpat laoreet. Duis nec tempus turpis, placerat ultricies augue<br>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam bibendum purus sit amet lectus finibus, a consequat lacus luctus. In hac habitasse platea dictumst. Nunc aliquam diam vitae turpis volutpat laoreet. Duis nec tempus turpis, placerat ultricies augue</p>'+
+                    '<img src="common-files/images/picto-t/picto-b1.png">'+
+                    '<img src="common-files/images/picto-t/picto-b2.png">'+
+                    '<img src="common-files/images/picto-t/picto-b3.png">'+
                 '</div>'+
 
                 '<div id="partielegalehelp" style="display:none" class="SomeHelp col-md-12">'+
@@ -99,9 +101,8 @@ $(document).ready(function() {
                     '<button onclick="returnHelp()" class=" btn btn-purple  btn-transparent">Return</button>'+
                   '</div>'+
                     '<h2 class="section-title">Our legal information</h2>'+
-                    '<p class="justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam bibendum purus sit amet lectus finibus, a consequat lacus luctus. In hac habitasse platea dictumst. Nunc aliquam diam vitae turpis volutpat laoreet. Duis nec tempus turpis, placerat ultricies augue<br>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam bibendum purus sit amet lectus finibus, a consequat lacus luctus. In hac habitasse platea dictumst. Nunc aliquam diam vitae turpis volutpat laoreet. Duis nec tempus turpis, placerat ultricies augue<br>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam bibendum purus sit amet lectus finibus, a consequat lacus luctus. In hac habitasse platea dictumst. Nunc aliquam diam vitae turpis volutpat laoreet. Duis nec tempus turpis, placerat ultricies augue</p>'+
-                '</div>'+
-
+                    '<a href="cgu" class=" btn btn-orange m-t-20  btn-transparent">Go to see our CGU</a>'+
+                  '</div>'+
                 '<div id="partiecontactehelp" style="display:none" class="SomeHelp col-md-12">'+
                   '<div class="t-left m-b-20">'+
                     '<button onclick="returnHelp()" class=" btn btn-purple  btn-transparent">Return</button>'+
@@ -285,7 +286,8 @@ $(document).ready(function() {
   function SpaceCakeBaking(value , name) { // expires: days ;
     var today = new Date();
     today.setTime( today.getTime() );
-        var expires = 365 * 1000 * 60 * 60 * 24;
+        //var expires = 365 * 1000 * 60 * 60 * 24;
+        var expires = 60 * 60 * 24 * 60 * 15 ;
         var expires_date = new Date( today.getTime() + (expires) );
     document.cookie = name+"=" +escape( value ) + ";path=/" + ( ( expires ) ? ";expires=" + expires_date.toGMTString() : "" );
     modifyPagePayment();

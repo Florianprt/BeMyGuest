@@ -8,27 +8,27 @@
             <div id="formulaire" style="color:white">
               <div class="row">
                 <div class="col-md-5 m-b-10 prepend-icon">
-                  <input id="formwhere" type="text" class=" border-orange  form-control form-white placeholder t-center" value="<?php if (isset($data['search']['where'])) {echo $data['search']['where'];}?>" placeholder="Where ?">
-                  <div id="nearhere">
-                    <div id="nearhereinside">Look around</div>
-                  </div>
+                  <input  type="text" class=" border-orange  form-control form-white placeholder t-center" value="<?php if (isset($data['search']['where'])) {echo $data['search']['where'];}?>" placeholder="Where ?" readonly="readonly">
                 </div>
                 <div class="col-md-4  m-b-10 prepend-icon">
-                  <input id="datepicker" type="datepicker" class=" border-orange  form-control form-white placeholder t-center" placeholder="Choose date" value="<?php if (isset($data['search']['date'])) {echo $data['search']['date'];}?>">
+                  <input class=" border-orange  form-control form-white placeholder t-center" placeholder="Choose date" value="<?php if (isset($data['search']['date'])) {echo $data['search']['date'];}?>" readonly="readonly">
                   <i class="line-icon-calendar"></i>
                 </div>
                 <div class="col-md-3 m-b-10 prepend-icon">
-                  <input type="text" class=" border-orange form-control form-white placeholder" placeholder="How many ?" value="<?php if (isset($data['search']['cb'])) {echo $data['search']['cb'];}?>">
+                  <input type="text" class=" border-orange form-control form-white placeholder" placeholder="How many ?" value="<?php if (isset($data['search']['cb'])) {echo $data['search']['cb'];}?>" readonly="readonly">
                   <i class="line-icon-user"></i>
                 </div>
               </div>
             </div>
             <div class="row m-t-20 m-b-20">
-              <div class="col-md-3 col-sm-12">
-                <h4 class="section-title">Fourchette de prix</h4>
+              <!--<div class="col-md-2 col-sm-12">
+                <h4 class="section-title">Price range</h4>
               </div>
-              <div class="col-md-9 col-sm-12 p-t-20">
+              <div class="col-md-10 col-sm-12 p-t-20">
                 <input type="text" id="prixrange" name="prixrange" value="" />
+              </div>-->
+              <div class="col-md-12 t-center">
+                <a href="home" class="btn btn-purple btn-transparent">Modify your search</a>
               </div>
             </div>
           </div>
@@ -98,7 +98,7 @@
               <a href="profil/<?php echo $idperson?>"><div class="smalliconprofil" style="    background-image: url('<?php echo $image;?>');"></div></a>
               <h4 class="pricing-heading color-scheme t-left"> <?php echo $dishname?></h4>
               <div class="minidesc"><p class="justify"><?php echo $dishdesc?></p></div>
-              <a href="dish/<?php echo $id?>/<?php echo str_replace("/", "-", $_POST['date']);?>"  class="btn btn-purple btn-transparent">Booking</a>
+              <a href="dish/<?php echo $id?>/<?php echo str_replace("/", "-", $data['search']['date']);?>"  class="btn btn-purple btn-transparent">Booking</a>
               </div>
             </div>
           </div>

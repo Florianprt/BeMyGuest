@@ -68,6 +68,8 @@
     <!-- End Create Dish -->
     <script src="common-files/user/plugins/datatables/jquery.dataTables.min.js"></script> <!-- Tables Filtering, Sorting & Editing -->
     <script src="common-files/user/js/pages/table_dynamic.js"></script>
+    <script src="common-files/user/js/pages/mailbox.js"></script>
+
 
     <!-- END PAGE SCRIPT -->
     <script src="common-files/user/plugins/touchspin/jquery.bootstrap-touchspin.min.js"></script> <!-- A mobile and touch friendly input spinner component for Bootstrap -->
@@ -76,6 +78,7 @@
     <script src="common-files/user/js/custom.js"></script>
     <script src="common-files/js/ajaxpopup.js"></script>
     <script src="common-files/js/facebookconnect.js"></script>
+
 
 
     <?php if (isset($data['pages_notifs']['notifs'])) {?>

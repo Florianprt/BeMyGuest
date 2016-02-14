@@ -27,7 +27,7 @@ class UserControllersec extends Core
             $this->firstname = $item['prenom'];
             $this->image = $item['image'];
         }
-        $this->global_information = array( "personnal_information"  => array("name" => $this->name, "first_name" => $this->firstname, "image" => $this->image));
+        $this->global_information = array( "personnal_information"  => array("name" => $this->name, "first_name" => $this->firstname, "image" => $this->image , "id" => $this->id));
     }
 
     public function index()
@@ -424,6 +424,55 @@ class UserControllersec extends Core
         $data = array_merge($data, $this->global_information);
 
         $this->view('user/sale.php', $data);
+    }
+
+
+    public function message()
+    {   
+        $messageDao = new MessageDao();
+        $reservationDao = new ReservationDao();
+        $user = new UserDao();
+        $Flashsession =  new AlerteCore();
+
+        $data = array (
+                "pages_info"  => array("title" => $this->title),
+        );
+
+        //$getmessagedist = $messageDao->getmessagedistinct($this->id);
+        $takeresa = $reservationDao->takeresa($this->id);
+        $getmessage = $messageDao->getmessage($this->id);
+
+        $datafunct = array (
+                "function"  => array("msg" => $messageDao,"resa" => $takeresa , "user" => $user ),
+        );
+
+        if((isset($_POST['send']))){
+            $idwrite = $this->id;
+            $idresa = $_POST['idresa'];
+            $message = $_POST['msg'];
+            $date = date("Y-m-d");
+
+            $insertmsg = $messageDao->Insertmessage($idresa, $message , $idwrite ,$date);
+            if ($insertmsg) {
+                
+                $messagesession = $Flashsession->setFlash('Perfect , your message is send ! ' ,'dark');
+                $msgflash = $Flashsession->flash();
+                $datanotif = array (
+                    "pages_notifs"  => array("notifs" => $msgflash),
+                );
+                $data = array_merge($data, $datanotif);
+
+                $data = array_merge($data, $datafunct);
+                $data = array_merge($data, $this->global_information);
+                $this->view('user/message.php', $data);
+            }
+        }
+
+
+        $data = array_merge($data, $datafunct);
+        $data = array_merge($data, $this->global_information);
+
+        $this->view('user/message.php', $data);
     }
 
 }

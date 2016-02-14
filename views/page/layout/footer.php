@@ -14,8 +14,8 @@
       </div>
       <div class="col-md-2 col-sm-6 col-xs-7">
         <h4>Company Info</h4>
-        <p><a href="cgu/">C.G.U</a></p>
-        <p><a href="faq/">F.A.Q</a></p>
+        <p><a href="cgu">C.G.U</a></p>
+        <p><a href="cgu">F.A.Q</a></p>
         <p><a class="opencontact" href="#">Contact us</a></p>
       </div>
       <div class="col-md-3 col-xs-12">

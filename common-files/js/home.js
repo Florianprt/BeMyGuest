@@ -67,6 +67,12 @@ $(document).ready(function() {
         }, 1000);
     });
 
+    $( ".goToComSection" ).click(function() {
+        $("html, body").animate({
+            scrollTop: $('#SectionComProfil').offset().top 
+        }, 1000);
+    });
+
 
 
     
